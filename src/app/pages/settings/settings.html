@@ -1,0 +1,333 @@
+
+<!-- Page Header -->
+<app-page-header [pageTitle]="'Settings'"></app-page-header>
+
+<!-- Settings -->
+<div class="pt-28 max-w-5xl mx-auto px-6">
+
+  <!-- Page Header -->
+  <div class="mb-8">
+    <h2 class="text-3xl font-extrabold text-gray-900">Settings</h2>
+    <p class="text-gray-500 text-lg mt-1">Manage your account and preferences</p>
+  </div>
+
+  <!-- Profile Section -->
+  <div class="bg-white p-6 rounded-2xl shadow-sm">
+
+    <h3 class="text-xl font-bold text-gray-900">Profile</h3>
+
+    <!-- Avatar + Change Photo -->
+    <div class="mt-5 flex items-center gap-6">
+
+      <!-- Avatar -->
+      <div class="w-20 h-20 flex items-center justify-center 
+      text-2xl font-bold text-white rounded-full
+      bg-gradient-to-r from-blue-500 to-blue-700 shadow-md">
+        JD
+      </div>
+
+      <!-- Change Photo -->
+      <div class="flex flex-col gap-2">
+        <button
+          class="px-4 py-2 rounded-xl cursor-pointer text-sm font-semibold border border-gray-300 
+          hover:bg-blue-600 hover:text-white transition">
+          Change Photo
+        </button>
+        <p class="text-xs text-gray-500">JPG or PNG, Max 2MB</p>
+      </div>
+
+    </div>
+
+    <!-- Form -->
+    <form class="mt-8 flex flex-col gap-6">
+
+      <!-- First + Last Name -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+
+        <div class="flex flex-col gap-2">
+          <label for="first_name" class="font-medium text-gray-700">First Name</label>
+          <input
+            type="text"
+            id="first_name"
+            class="p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value="John"
+          />
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label for="last_name" class="font-medium text-gray-700">Last Name</label>
+          <input
+            type="text"
+            id="last_name"
+            class="p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value="Doe"
+          />
+        </div>
+
+      </div>
+
+      <!-- Email -->
+      <div class="flex flex-col gap-2 text-sm">
+        <label for="email" class="font-medium text-gray-700">Email</label>
+        <input
+          type="text"
+          id="email"
+          class="p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value="john@mail.com"
+        />
+      </div>
+
+      <!-- Email Signature -->
+      <div class="flex flex-col gap-2 text-sm">
+        <label for="signature" class="font-medium text-gray-700">Email Signature</label>
+        <textarea
+          id="signature"
+          rows="4"
+          class="p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >Best regards,
+John Doe,
+Senior Developer
+        </textarea>
+      </div>
+
+     
+
+    </form>
+
+  </div>
+
+  <!-- Tone Preferences -->
+<div class="bg-white p-6 rounded-2xl shadow-sm mt-6">
+
+  <h3 class="text-xl font-bold text-gray-900">Tone Preferences</h3>
+  <p class="text-gray-500 text-sm mt-1">
+    Set your default writing tone for generated emails
+  </p>
+
+  <div class="flex flex-col gap-3 mt-5 text-sm">
+
+    <label for="defaultTone" class="font-medium text-gray-700">
+      Default Tone
+    </label>
+
+    <select
+      id="defaultTone"
+      class="p-3 rounded-xl border border-gray-300 text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white"
+    >
+      <!-- Professional Tones -->
+      <optgroup label="Professional">
+        <option value="professional">Professional</option>
+        <option value="formal">Formal</option>
+        <option value="business">Business</option>
+        <option value="concise">Concise</option>
+      </optgroup>
+
+      <!-- Friendly Tones -->
+      <optgroup label="Friendly">
+        <option value="friendly">Friendly</option>
+        <option value="polite">Polite</option>
+        <option value="casual">Casual</option>
+      </optgroup>
+
+      <!-- Creative Tones -->
+      <optgroup label="Creative">
+        <option value="enthusiastic">Enthusiastic</option>
+        <option value="persuasive">Persuasive</option>
+        <option value="storytelling">Storytelling</option>
+      </optgroup>
+    </select>
+
+  </div>
+
+  <app-setting-toogle
+  title="Always use default tone"
+  description="Automatically select your prefered tone"
+  [(value)]="alwaysUseTone"
+  ></app-setting-toogle>
+
+</div>
+
+
+    <!-- Notifications -->
+     <div class="bg-white p-6 rounded-2xl shadow-sm mt-6">
+
+  <h3 class="text-xl font-bold text-gray-900">Notifications</h3>
+<!-- Email Notifications -->
+  <app-setting-toogle
+  title="Email notifications"
+  description="Receive updates via email"
+  [(value)]="emailNotification"
+  ></app-setting-toogle>
+
+  <!-- Generation Completed -->
+   <app-setting-toogle
+  title="Generation complete"
+  description="Notify when email is generated"
+  [(value)]="generationCompleteNotification"
+  ></app-setting-toogle>
+
+    <!-- Weekly summary -->
+   <app-setting-toogle
+  title="Weekly summary"
+  description="Get weekly usage statistics"
+  [(value)]="weeklySummaryNotification"
+  ></app-setting-toogle>
+
+
+     </div>
+
+     <!-- Billing -->
+      <div class="bg-white p-6 rounded-2xl shadow-sm mt-6">
+
+  <!-- Heading -->
+  <h3 class="text-xl font-bold text-gray-900">Billing</h3>
+  <p class="text-gray-500 text-sm mt-1">Manage your subscription and payment details</p>
+
+  <!-- Active Plan Banner -->
+  <div class="mt-6 flex justify-between items-center bg-blue-50 p-4 rounded-xl border border-blue-100">
+
+    <!-- Plan Info -->
+    <div class="flex flex-col">
+      <h2 class="font-semibold text-gray-900 text-lg">
+        {{ planInfo.activePlan }}
+      </h2>
+      <p class="text-gray-600 text-sm">
+        {{ planInfo.price }}/{{ planInfo.period }}
+      </p>
+    </div>
+
+    <!-- Active Badge -->
+    <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow">
+      Active
+    </span>
+  </div>
+
+  <!-- Billing Details -->
+  <div class="mt-6 space-y-4">
+
+    <div class="flex justify-between items-center">
+      <p class="text-gray-500 text-sm">Next Billing Date</p>
+      <p class="font-semibold text-sm text-gray-900">
+        {{ planInfo.next_billing_date }}
+      </p>
+    </div>
+
+    <div class="flex justify-between items-center">
+      <p class="text-gray-500 text-sm">Payment Method</p>
+      <p class="font-semibold text-sm text-gray-900">
+        {{ planInfo.payment_method }}
+      </p>
+    </div>
+
+  </div>
+
+  <!-- Buttons -->
+  <div class="flex gap-4 mt-8 text-sm">
+    
+    <button
+      class="px-5 py-2.5 rounded-xl border border-gray-300 text-gray-700 font-semibold 
+             hover:bg-gray-100 transition">
+      Change Plan
+    </button>
+
+    <button
+      class="px-5 py-2.5 rounded-xl bg-blue-600 text-white font-semibold 
+             hover:bg-blue-700 transition">
+      Update Payment
+    </button>
+
+  </div>
+
+</div>
+
+
+      <!-- API Usage -->
+      <div class="bg-white p-6 rounded-2xl shadow-sm mt-6">
+
+  <!-- Header -->
+  <h3 class="text-xl font-bold text-gray-900">API Usage</h3>
+  <p class="text-gray-500 text-sm mt-1">Monitor API calls, limits, and manage API keys</p>
+
+  <!-- API Stats -->
+  <div class="mt-6 space-y-6">
+
+    <!-- Total Requests -->
+    <div>
+      <div class="flex justify-between mb-1">
+        <p class="text-gray-700 font-medium text-sm">Monthly API Requests</p>
+        <p class="text-gray-900 font-semibold text-sm">
+          {{ apiInfo.used }} / {{ apiInfo.limit }}
+        </p>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+        <div
+          class="h-full bg-blue-600 rounded-full transition-all"
+          [style.width.%]="(apiInfo.used / apiInfo.limit) * 100">
+        </div>
+      </div>
+
+      <p class="text-xs text-gray-500 mt-1">
+        Next reset: {{ apiInfo.resetDate }}
+      </p>
+    </div>
+
+    <!-- Cost Per Request -->
+    <div class="flex justify-between items-center">
+      <p class="text-gray-500 text-sm">Cost per 1k requests</p>
+      <p class="font-semibold text-sm text-gray-900">${{ apiInfo.costPer1000 }}</p>
+    </div>
+
+  </div>
+
+  <!-- API Key Section -->
+  <div class="mt-8">
+    <h4 class="text-lg font-semibold text-gray-900">API Key</h4>
+    <p class="text-gray-500 text-sm mt-1">Your secret API key used for authentication</p>
+
+    <div
+      class="flex items-center justify-between bg-gray-50 rounded-xl p-3 mt-3 border border-gray-300">
+
+      <!-- Masked Key -->
+      <span class="font-mono text-gray-700 text-sm">
+        {{ apiInfo.keyMasked }}
+      </span>
+
+      <!-- Buttons -->
+      <div class="flex gap-2">
+        <button
+          class="px-3 py-2 rounded-lg bg-gray-100 text-gray-700 text-sm font-medium hover:bg-gray-200 transition"
+          (click)="copyKey()">
+          Copy
+        </button>
+
+        <button
+          class="px-3 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition"
+          (click)="regenerateKey()">
+          Regenerate
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+
+
+  <div class="flex gap-2 flex justify-end gap-4 mt-4 text-sm [&>*]:cursor-pointer">
+      <!-- Save Button -->
+        <button
+        (click)="onError()"
+        class="px-6 py-3 rounded-xl font-semibold hover:bg-gray-300 transition">
+          Cancel
+        </button>
+ <button
+ (click)="onSave()"
+ class="px-6 py-3 rounded-xl bg-blue-600 text-white hover:bg-blue-600 transition">
+          Save Changes
+        </button>
+  </div>
+      
+</div>

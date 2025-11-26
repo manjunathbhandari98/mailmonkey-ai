@@ -1,0 +1,60 @@
+<div class="w-60 bg-white border-r border-gray-200 flex flex-col py-6 px-4 shadow">
+
+  <!-- Branding -->
+  <div class="flex items-center gap-2 px-2 mb-8">
+    <div class="w-8 h-8 bg-blue-600 text-white flex items-center justify-center rounded-lg font-semibold">
+      MM
+    </div>
+    <h1 class="text-xl font-bold">
+      <span class="text-blue-600">Mail</span>Monkey
+    </h1>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="flex flex-col gap-1 text-gray-700">
+
+    <!-- Dashboard -->
+    <a routerLink="/dashboard"
+       routerLinkActive="bg-blue-100 text-blue-700"
+       class="px-3 py-2 rounded-md hover:bg-gray-100 transition">
+      🏠 Dashboard
+    </a>
+
+    <!-- Generate Email -->
+    <a routerLink="/generate"
+       routerLinkActive="bg-blue-100 text-blue-700"
+       class="px-3 py-2 rounded-md hover:bg-gray-100 transition">
+      ✍️ Generate Email
+    </a>
+
+    <!-- Templates -->
+    <a routerLink="/templates"
+       routerLinkActive="bg-blue-100 text-blue-700"
+       class="px-3 py-2 rounded-md hover:bg-gray-100 transition">
+      📄 Templates
+    </a>
+
+    <!-- History -->
+    <a routerLink="/history"
+       routerLinkActive="bg-blue-100 text-blue-700"
+       class="px-3 py-2 rounded-md hover:bg-gray-100 transition">
+      📚 History
+    </a>
+
+    <!-- Settings -->
+    <a routerLink="/settings"
+       routerLinkActive="bg-blue-100 text-blue-700"
+       class="px-3 py-2 rounded-md hover:bg-gray-100 transition">
+      ⚙️ Settings
+    </a>
+
+  </nav>
+
+  <!-- Footer links -->
+  <div class="mt-auto pt-6 border-t border-gray-200">
+    <a routerLink="/login" class="text-red-600 text-sm px-3 py-2 block hover:bg-red-50 rounded-md transition">
+      🚪 Logout
+    </a>
+  </div>
+
+</div>

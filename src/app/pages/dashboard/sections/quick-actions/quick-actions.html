@@ -1,0 +1,49 @@
+<div class="w-full my-20 px-6">
+
+  <h2 class="text-xl md:text-2xl font-extrabold text-gray-900">
+    Quick Actions
+  </h2>
+  <!-- <p class="text-gray-600 text-center mt-2 max-w-2xl mx-auto">
+    Jump into your workflow instantly
+  </p> -->
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-10">
+
+    @for (action of quickActions; track $index) {
+
+      <div
+        class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm
+               hover:shadow-xl transition-all cursor-pointer group relative">
+
+        <!-- Glow Effect -->
+        <!-- <div class="absolute -top-3 left-4 w-20 h-20 opacity-50 rounded-full"
+             [ngStyle]="{ 'background': action.gradient }">
+        </div> -->
+
+        <div class="relative flex flex-col gap-4">
+
+          <!-- Gradient Icon Box -->
+          <div
+            class="w-14 h-14 rounded-xl flex items-center justify-center text-white"
+            [ngStyle]="{ 'background': action.gradient }">
+            <ng-icon
+              [name]="action.icon"
+              style="width: 24px; height: 24px; font-weight: bolder;"
+              class="text-white">
+            </ng-icon>
+          </div>
+
+          <!-- Text -->
+          <div>
+            <h3 class="font-semibold text-lg text-gray-900">{{ action.title }}</h3>
+            <p class="text-gray-600 text-sm mt-1">{{ action.description }}</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    }
+
+  </div>
+</div>

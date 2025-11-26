@@ -1,0 +1,51 @@
+<div class="w-full my-20 px-6">
+
+  <!-- Header -->
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-extrabold text-gray-900">Recent Emails</h2>
+    <button class="text-blue-600 font-semibold hover:underline cursor-pointer">
+      View All
+    </button>
+  </div>
+
+  <div class="flex flex-col gap-4">
+
+    @for (email of recentEmails; track $index) {
+      <div class="bg-white border border-gray-200 p-5 rounded-2xl shadow-sm hover:shadow-md transition cursor-pointer">
+
+        <div class="flex justify-between items-start">
+
+          <!-- Email Info -->
+          <div class="flex flex-col gap-1">
+
+            <div class="flex gap-2 items-center">
+              <h2 class="text-lg font-semibold text-gray-900">{{ email.title }}</h2>
+
+              <span class="px-2 py-1 text-xs rounded-lg bg-blue-100 text-blue-600 font-medium">
+                {{ email.tone }}
+              </span>
+            </div>
+
+            <p class="text-gray-600 text-sm">
+              {{ email.preview }}
+            </p>
+
+            <p class="text-gray-400 text-xs mt-2">
+              {{ email.time }}
+            </p>
+
+          </div>
+
+          <!-- View Button -->
+          <button class="px-4 py-2 rounded-xl text-sm font-semibold bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition">
+            View
+          </button>
+
+        </div>
+
+      </div>
+    }
+
+  </div>
+
+</div>

@@ -1,0 +1,67 @@
+<div class="min-h-screen bg-gray-50 flex flex-col justify-center items-center px-6 text-center">
+
+  <!-- Logo -->
+  <div class="flex flex-col items-center gap-2 mb-6">
+    <img src="/logo.png" alt="logo" class="w-20 h-20 drop-shadow" />
+    <h1 class="text-4xl font-extrabold tracking-tight">
+      <span class="text-blue-600">Mail</span>Monkey AI
+    </h1>
+    <h2 class="text-2xl font-bold mt-5">
+      Write Perfect Emails <span class="text-blue-600">in Seconds with AI</span>
+
+    </h2>
+    <p class="text-gray-600 text-lg max-w-xl">
+      Generate perfect emails in seconds. Smart. Fast. Professional.
+    </p>
+  </div>
+
+  <!-- Call to Action Buttons -->
+  <div class="mt-6 flex gap-4">
+    <button
+      (click)="goToLogin()"
+      class="px-8 py-2 bg-blue-600 flex items-center gap-2 text-white rounded-xl text-md shadow hover:bg-blue-700 transition"
+    >
+      Generate Email Now
+      <!-- Right Icon -->
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+</svg>
+
+    </button>
+
+    <button
+      (click)="goToLogin()"
+      class="px-8 py-2 bg-white border border-gray-300 rounded-xl text-lg shadow hover:bg-gray-100 transition"
+    >
+      Try Demo
+    </button>
+  </div>
+
+  <!-- Features Preview -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-20 max-w-6xl w-full px-4">
+
+    @for (stat of stats; track $index) {
+
+      <div
+        class="p-6 bg-white rounded-2xl shadow hover:shadow-xl border border-gray-100 
+        hover:border-gray-200 transition-all flex flex-col text-left">
+        
+        <h1 class="text-4xl font-extrabold text-blue-600 drop-shadow-sm">
+          {{ stat.value }}
+        </h1>
+
+        <h2 class="text-base font-semibold text-gray-800 mt-2 tracking-tight">
+          {{ stat.label }}
+        </h2>
+
+        <p class="text-sm text-gray-500 mt-1 max-w-[200px]">
+          {{ stat.description }}
+        </p>
+      </div>
+
+    }
+
+  </div>
+
+
+</div>

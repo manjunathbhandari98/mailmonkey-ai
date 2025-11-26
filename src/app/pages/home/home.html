@@ -1,0 +1,38 @@
+<div class="bg-gray-50/50 pt-24">
+  
+<!-- Public Navbar -->
+<app-navbar-public></app-navbar-public>
+
+<!-- Hero Section -->
+<app-hero [stats]="stats"></app-hero>
+
+<!-- Feature Section -->
+ <section id="features">
+
+   <app-features
+     [heading]="featureSection.heading"
+     [subheading]="featureSection.subheading"
+     [features]="featureSection.features">
+   </app-features>
+ </section>
+
+<!-- Demo Section -->
+ <section id="demo">
+
+   <app-demo></app-demo>
+ </section>
+
+ <!-- Pricing Section -->
+  <section id="pricing">
+
+    <div class="mt-20">
+       <app-pricing></app-pricing>
+    </div>
+  </section>
+
+<!-- Footer -->
+<div class="max-w-7xl mx-auto">
+  <app-footer/>
+</div>
+
+</div>

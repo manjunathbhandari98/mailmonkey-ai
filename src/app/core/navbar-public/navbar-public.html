@@ -1,0 +1,35 @@
+<div class="flex justify-between items-center p-3 fixed top-0 left-0 w-full z-50 bg-white">
+  <!-- Left side (Logo) -->
+   <a href="/">
+     <app-logo></app-logo>
+   </a>
+
+  <!-- Right Side (Navs) -->
+  <div class="flex items-center gap-2">
+    @for (nav of navOptions; track $index) {
+    <a
+      [routerLink]="['/']"
+      [fragment]="nav.fragment"
+      routerLinkActive="text-blue-600 font-semibold"
+      class="px-4 py-2 text-gray-700 text-sm font-bold hover:text-blue-600 transition cursor-pointer"
+    >
+      {{ nav.option }}
+    </a>
+    }
+
+    <a
+      [routerLink]="['/login']"
+      class="px-4 py-2 text-gray-700 text-sm font-bold hover:text-blue-600 transition cursor-pointer"
+    >
+      Login
+    </a>
+
+    <a
+      [routerLink]="['/register']"
+      routerLinkActive="router-link-active"
+      class="bg-blue-600 rounded-lg cursor-pointer px-4 py-2 text-sm font-bold text-white hover:bg-blue-700 transition"
+    >
+      Get Started
+    </a>
+  </div>
+</div>

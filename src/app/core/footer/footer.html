@@ -1,0 +1,26 @@
+<div class="mt-12 py-6">
+
+<div class="flex justify-between items-center">
+
+  <!-- Logo -->
+  <app-logo></app-logo>
+
+  <!-- Footer Navigation -->
+  <div class="flex items-center gap-6">
+    @for (option of footerOptions; track $index) {
+      <a
+        [routerLink]="option.link"
+        routerLinkActive="text-blue-600 font-semibold"
+        class="text-gray-600 hover:text-blue-600 text-sm font-medium transition-colors cursor-pointer"
+      >
+        {{ option.title }}
+      </a>
+    }
+  </div>
+</div>
+
+<p class="text-gray-500 text-sm text-center py-6">
+  © {{ currentYear() }} MailMonkey AI — All rights reserved.
+</p>
+
+</div>

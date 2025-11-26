@@ -1,0 +1,47 @@
+<app-navbar-auth></app-navbar-auth>
+
+<div class="pt-24 max-w-7xl mx-auto bg-gray-50">
+    <h2 class="text-4xl font-extrabold">Welcome back, John!</h2>
+    <h4 class="text-lg font-medium mt-3 text-gray-600">Ready to create amazing emails?</h4>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-10 mt-20 w-full justify-between px-4">
+
+  @for (stat of analytics; track $index) {
+
+    <div
+      class="group p-8 bg-white rounded-2xl shadow-sm border border-gray-100 
+      hover:shadow-xl hover:border-transparent transition-all duration-300">
+
+      <!-- Icon container -->
+      <div
+        class="w-14 h-14 rounded-xl bg-blue-500/20 flex items-center justify-center 
+        shadow-md group-hover:scale-105 transition-transform duration-300">
+        <ng-icon 
+          [name]="stat.icon" 
+            aria-setsize="20"
+            style="color:blue; width:26px; height: 26px;">
+        </ng-icon>
+      </div>
+
+      <!-- Value -->
+      <h2 class="text-2xl font-bold text-gray-900 mt-5 tracking-tight">
+        {{ stat.value }}
+      </h2>
+
+      <!-- Label -->
+      <p class="text-sm text-gray-600 mt-2 leading-relaxed">
+        {{ stat.label }}
+      </p>
+
+    </div>
+
+  }
+
+</div>
+
+<!-- Quick Actions -->
+ <app-quick-actions></app-quick-actions>
+
+ <!-- Recent Emails -->
+  <app-recent-emails></app-recent-emails>
+</div>
