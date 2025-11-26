@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
@@ -21,96 +21,109 @@ import { ToastService } from '../../services/toast-service/toast-service';
 })
 export class EmailImprover {
 
-  // USER INPUT
-  originalEmail: string = `
-Hi,
+  // TWO-WAY BOUND INPUT
+  originalEmail = signal('');
+  selectedOption = signal('professional');
+  isGenerating = signal(false);
 
-I wanted to reach out about the job. I have some experience and think I would be good for the role.
-Let me know if you want to talk.
-
-Thanks
-  `.trim();
-
+  // Improvement Options
   improvementOptions = [
     { id: 'professional', label: 'Make it Professional' },
     { id: 'shorter', label: 'Make it Shorter' },
     { id: 'friendly', label: 'Make it Friendlier' },
-    { id: 'grammar', label: 'Fix Grammar' },
+    { id: 'grammar', label: 'Fix Grammar' }
   ];
 
-  selectedOption: string = 'professional';
-
   // OUTPUT EMAIL VERSIONS
-  currentVersion: number = 1;
-  generatedEmails: { [key: number]: { subject: string; content: string } } = {
-    1: { subject: '', content: '' },
-    2: { subject: '', content: '' },
-    3: { subject: '', content: '' }
-  };
+  currentVersion = 1;
+ generatedEmails: Record<number, { subject: string; content: string }> = {
+  1: { subject: '', content: '' },
+  2: { subject: '', content: '' },
+  3: { subject: '', content: '' }
+};
+
 
   constructor(private toast:ToastService) {}
 
-  // MAIN IMPROVEMENT LOGIC — replace later with AI API
+  // VALIDATION LOGIC
+  errorMessage = computed(() => {
+  const email = this.originalEmail().trim();
+
+  if (!email) return "Email cannot be empty.";
+  if (email.length < 30) return "Email must be at least 30 characters.";
+
+  return "";
+});
+
+
+  isInvalid = computed(() => this.errorMessage() !== "");
+
+
+  // MAIN LOGIC 
   improveEmail() {
+    if (this.isInvalid()) {
+      this.toast.error(this.errorMessage());
+      return;
+    }
+
+    this.isGenerating.set(true);
+    const option = this.selectedOption();
     const base = this.originalEmail;
 
     const optionText = {
-      professional: "Here is a polished, professional version of your email:",
-      shorter: "Here is a more concise version of your email:",
-      friendly: "Here is a warmer, more friendly version of your email:",
+      professional: "Here is a polished, professional version:",
+      shorter: "Here is a more concise version:",
+      friendly: "Here is a warmer, more friendly version:",
       grammar: "Here is a corrected version with improved grammar:"
-    }[this.selectedOption] ?? "";
+    }[option];
 
-    // Fake versions for now
-    this.generatedEmails[1] = {
-      subject: "Regarding Your Job Opening",
-      content: `${optionText}\n\n${base}\n\nVersion 1 improved content…`
-    };
+    setTimeout(() => {
+      this.generatedEmails[1] = {
+        subject: "Improved Email - Version 1",
+        content: `${optionText}\n\n${base}\n\n✨ Version 1 improved content…`
+      };
 
-    this.generatedEmails[2] = {
-      subject: "Application Follow-Up",
-      content: `${optionText}\n\n${base}\n\nVersion 2 improved content…`
-    };
+      this.generatedEmails[2] = {
+        subject: "Improved Email - Version 2",
+        content: `${optionText}\n\n${base}\n\n✨ Version 2 improved content…`
+      };
 
-    this.generatedEmails[3] = {
-      subject: "Interest in the Position",
-      content: `${optionText}\n\n${base}\n\nVersion 3 improved content…`
-    };
-    this.toast.success("Your email has been improved");
+      this.generatedEmails[3] = {
+        subject: "Improved Email - Version 3",
+        content: `${optionText}\n\n${base}\n\n✨ Version 3 improved content…`
+      };
+
+      this.isGenerating.set(false);
+      this.toast.success("Your email has been improved");
+    }, 700);
   }
 
-  // SWITCH VERSION
   setVersion(v: number) {
     this.currentVersion = v;
   }
 
-  // COPY EMAIL
-  copyEmail() {
-    const content = this.generatedEmails[this.currentVersion]?.content;
-    if (!content) return;
-
-    navigator.clipboard.writeText(content)
-      .then(() => this.toast.info("Your email has been improved"))
-      .catch(() => this.toast.error("Failed to copy"));;
+  selectOption(id: string) {
+    this.selectedOption.set(id);
   }
 
-  // DOWNLOAD AS PDF
+  copyEmail() {
+    const content = this.generatedEmails[this.currentVersion]?.content;
+    navigator.clipboard.writeText(content);
+    this.toast.success("Copied to clipboard");
+  }
+
   downloadPDF() {
     const text = this.generatedEmails[this.currentVersion]?.content;
-    if (!text) return;
-
     const blob = new Blob([text], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
 
     const a = document.createElement("a");
     a.href = url;
-    a.download = "improved-email.txt"; // later make PDF
+    a.download = "improved-email.txt";
     a.click();
-
     URL.revokeObjectURL(url);
   }
 
-  // REGENERATE (mock for now)
   regenerate() {
     this.improveEmail();
   }

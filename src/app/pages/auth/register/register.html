@@ -1,10 +1,8 @@
 <div class="max-w-lg mx-auto bg-white rounded-2xl p-10 shadow-lg flex flex-col items-center gap-6">
 
   <!-- Logo -->
-  <div class="flex flex-col items-center gap-2 cursor-pointer"
-  [routerLink]="['/']" routerLinkActive="router-link-active" 
-  >
-    <app-logo></app-logo>
+  <div class="flex flex-col items-center gap-2 cursor-pointer" [routerLink]="['/']">
+    <app-logo />
   </div>
 
   <!-- Title -->
@@ -13,106 +11,103 @@
     <p class="text-gray-500 text-sm mt-1">Join MailMonkey AI in just a minute</p>
   </div>
 
-  <!-- Form -->
-  <div class="flex flex-col gap-5 w-full text-sm">
+  <form [formGroup]="registerForm" class="flex flex-col gap-5 w-full text-sm">
 
-    <!-- Full Name -->
+    <!-- FULL NAME -->
     <div class="flex flex-col gap-1">
       <label class="text-gray-700 font-medium">Full Name</label>
+
       <input
         type="text"
+        formControlName="fullName"
         placeholder="John Doe"
-        class="p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+        class="p-3 rounded-xl border border-gray-300"
       />
+
+      @if (registerForm.get('fullName')?.touched && registerForm.get('fullName')?.invalid) {
+        <p class="text-red-600 text-xs">
+          @if (registerForm.get('fullName')?.errors?.['required']) {
+            <span>Full Name is required</span>
+          }
+          @if (registerForm.get('fullName')?.errors?.['minlength']) {
+            <span>Full Name must be at least 3 characters long</span>
+          }
+        </p>
+      }
     </div>
 
-    <!-- Email -->
+    <!-- EMAIL -->
     <div class="flex flex-col gap-1">
       <label class="text-gray-700 font-medium">Email</label>
+
       <input
         type="email"
+        formControlName="email"
         placeholder="you@example.com"
-        class="p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+        class="p-3 rounded-xl border border-gray-300"
       />
+
+      @if (registerForm.get('email')?.touched && registerForm.get('email')?.invalid) {
+        <p class="text-red-600 text-xs">
+          @if (registerForm.get('email')?.errors?.['required']) { <span>Email is required</span> }
+          @if (registerForm.get('email')?.errors?.['email']) { <span>Invalid email</span> }
+        </p>
+      }
     </div>
 
-    <!-- Password -->
+    <!-- PASSWORD -->
     <div class="flex flex-col gap-1">
       <label class="text-gray-700 font-medium">Password</label>
-       <div class="rounded-xl relative flex border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none">
-              <input
-        [type]="showPassword() ? 'text':'password'"
-        id="password"
-        placeholder="********"
-        class="border-none outline-none p-3 w-full"
-      />
-      <button
-      type="button"
-      (click)="togglePassword()"
-class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
-      >
-    <ng-icon
-    [name]="showPassword() ? 'heroEyeSlash':'heroEye'"
-    style="width: 20px; height: 20px;"
-    >
 
-    </ng-icon>
-    </button>
+      <div class="rounded-xl relative flex border border-gray-300">
+        <input
+          [type]="showPassword() ? 'text' : 'password'"
+          formControlName="password"
+          placeholder="********"
+          class="p-3 w-full outline-none"
+        />
 
+        <button type="button" (click)="togglePassword()" class="absolute right-3 top-1/2 -translate-y-1/2">
+          <ng-icon [name]="showPassword() ? 'heroEyeSlash' : 'heroEye'" style="width: 20px; height: 20px;" />
+        </button>
+      </div>
+
+      @if (registerForm.get('password')?.touched && registerForm.get('password')?.invalid) {
+        <p class="text-red-600 text-xs">
+          @if (registerForm.get('password')?.errors?.['required']) { <span>Password is required</span> }
+          @if (registerForm.get('password')?.errors?.['minlength']) { <span>Password must be at least 6 characters</span> }
+        </p>
+      }
     </div>
-    </div>
 
-    <!-- Confirm Password -->
+    <!-- CONFIRM PASSWORD -->
     <div class="flex flex-col gap-1">
       <label class="text-gray-700 font-medium">Confirm Password</label>
-      <div class="rounded-xl relative flex border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none">
-              <input
-        [type]="showConfirmPassword() ? 'text':'password'"
-        id="password"
-        placeholder="********"
-        class="border-none outline-none p-3 w-full"
-      />
-      <button
-      type="button"
-      (click)="toggleConfirmPassword()"
-class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
-      >
-    <ng-icon
-    [name]="showConfirmPassword() ? 'heroEyeSlash':'heroEye'"
-    style="width: 20px; height: 20px;"
-    >
-    </ng-icon>
-    </button>
 
+      <div class="rounded-xl relative flex border border-gray-300">
+        <input
+          [type]="showConfirmPassword() ? 'text' : 'password'"
+          formControlName="confirmPassword"
+          placeholder="********"
+          class="p-3 w-full outline-none"
+        />
+
+        <button type="button" (click)="toggleConfirmPassword()" class="absolute right-3 top-1/2 -translate-y-1/2">
+          <ng-icon [name]="showConfirmPassword() ? 'heroEyeSlash' : 'heroEye'" style="width: 20px; height: 20px;" />
+        </button>
+      </div>
+
+      @if (registerForm.get('confirmPassword')?.touched && registerForm.errors?.['mismatch']) {
+        <p class="text-red-600 text-xs">
+          Passwords do not match
+        </p>
+      }
     </div>
-</div>
-    <!-- Submit Button -->
+
     <button
-      class="w-full p-3 rounded-xl cursor-pointer font-semibold text-white bg-blue-600 hover:bg-blue-700 transition">
+    (click)="onRegister()"
+      class="w-full p-3 rounded-xl text-white bg-blue-600 hover:bg-blue-700 transition">
       Create Account
     </button>
-  </div>
-
-  <!-- Divider -->
-  <div class="flex items-center justify-center w-full gap-3 my-2">
-    <div class="border-t border-gray-300 w-full"></div>
-    <span class="text-xs text-gray-500 w-full text-center">Or continue with</span>
-    <div class="border-t border-gray-300 w-full"></div>
-  </div>
-
-  <!-- Google Button -->
-  <button
-    class="w-full flex items-center cursor-pointer justify-center gap-3 border border-gray-300 rounded-xl p-3 hover:bg-blue-500 hover:text-white transition">
-    <img src="/icons/google.png" class="w-5 h-5" />
-    <span class="text-sm font-medium">Sign up with Google</span>
-  </button>
-
-  <!-- Footer -->
-  <p class="text-gray-600 text-sm text-center mt-3">
-    Already have an account?
-    <a routerLink="/login" class="text-blue-600 font-semibold cursor-pointer">
-      Sign in
-    </a>
-  </p>
-
+  </form>
 </div>

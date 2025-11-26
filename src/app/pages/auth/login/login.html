@@ -1,10 +1,9 @@
 <div class="max-w-lg mx-auto bg-white rounded-2xl p-10 shadow-lg flex flex-col items-center gap-6">
 
   <!-- Logo -->
-   <div class="flex flex-col items-center gap-2 cursor-pointer"
-  [routerLink]="['/']" routerLinkActive="router-link-active" 
-  >
-    <app-logo></app-logo>
+  <div class="flex flex-col items-center gap-2 cursor-pointer"
+       [routerLink]="['/']">
+    <app-logo />
   </div>
 
   <!-- Title -->
@@ -13,55 +12,89 @@
     <p class="text-gray-500 text-sm mt-1">Sign in to your account to continue</p>
   </div>
 
-  <!-- Form -->
-  <div class="flex flex-col gap-5 w-full text-sm">
 
-    <!-- Email -->
+  <!-- Form -->
+  <form [formGroup]="loginForm"
+        class="flex flex-col gap-5 w-full text-sm">
+
+    <!-- EMAIL -->
     <div class="flex flex-col gap-1">
       <label for="email" class="text-gray-700 font-medium">Email</label>
+
       <input
         type="email"
         id="email"
+        formControlName="email"
         placeholder="you@example.com"
         class="p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none"
       />
+
+      @if (loginForm.get('email')?.touched && loginForm.get('email')?.invalid) {
+        <p class="text-red-600 text-xs">
+          @if (loginForm.get('email')?.errors?.['required']) {
+            <span>Email is required.</span>
+          }
+          @if (loginForm.get('email')?.errors?.['email']) {
+            <span>Enter a valid email.</span>
+          }
+        </p>
+      }
     </div>
 
-    <!-- Password -->
+
+    <!-- PASSWORD -->
     <div class="flex flex-col gap-1">
       <div class="flex justify-between items-center">
         <label for="password" class="text-gray-700 font-medium">Password</label>
         <a href="/forgot-password" class="text-blue-600 text-sm">Forgot password?</a>
       </div>
-      <div class="rounded-xl relative flex border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none">
-              <input
-        [type]="showPassword() ? 'text':'password'"
-        id="password"
-        placeholder="********"
-        class="border-none outline-none p-3 w-full"
-      />
-      <button
-      type="button"
-      (click)="togglePassword()"
-class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
-      >
-    <ng-icon
-    [name]="showPassword() ? 'heroEyeSlash':'heroEye'"
-    style="width: 20px; height: 20px;"
-    >
 
-    </ng-icon>
-    </button>
+      <div class="rounded-xl relative flex border border-gray-300">
+
+        <input
+          [type]="showPassword() ? 'text' : 'password'"
+          id="password"
+          formControlName="password"
+          placeholder="********"
+          class="border-none outline-none p-3 w-full"
+        />
+
+        <button
+          type="button"
+          (click)="togglePassword()"
+          class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700">
+
+          <ng-icon
+            [name]="showPassword() ? 'heroEyeSlash' : 'heroEye'"
+            style="width: 20px; height: 20px;" />
+        </button>
+
       </div>
 
+      @if (loginForm.get('password')?.touched && loginForm.get('password')?.invalid) {
+        <p class="text-red-600 text-xs">
+          @if (loginForm.get('password')?.errors?.['required']) {
+            <span>Password is required.</span>
+          }
+          @if (loginForm.get('password')?.errors?.['minlength']) {
+            <span>Password must be at least 6 characters.</span>
+          }
+        </p>
+      }
     </div>
 
+
+    <!-- BUTTON -->
     <button
-    (click)="onLogin()"
-      class="w-full p-3 rounded-xl font-semibold text-white bg-blue-600 hover:bg-blue-700 transition">
+      type="button"
+      (click)="onLogin()"
+      class="w-full p-3 rounded-xl font-semibold text-white bg-blue-600 
+            disabled:bg-gray-400 disabled:cursor-not-allowed hover:bg-blue-700 transition">
       Sign In
     </button>
-  </div>
+
+  </form>
+
 
   <!-- Divider -->
   <div class="flex items-center justify-center w-full gap-3 my-2">
@@ -70,12 +103,14 @@ class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-7
     <div class="border-t border-gray-300 w-full"></div>
   </div>
 
-  <!-- Google Button -->
+
+  <!-- Google -->
   <button
-    class="w-full flex cursor-pointer items-center justify-center gap-3 border border-gray-300 rounded-xl p-3 hover:bg-blue-600 hover:text-white transition">
+    class="w-full flex items-center justify-center gap-3 border border-gray-300 rounded-xl p-3 hover:bg-blue-600 hover:text-white transition">
     <img src="/icons/google.png" class="w-5 h-5" />
     <span class="text-sm font-medium">Continue with Google</span>
   </button>
+
 
   <!-- Footer -->
   <p class="text-gray-600 text-sm">

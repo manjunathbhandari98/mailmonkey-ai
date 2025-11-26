@@ -3,61 +3,69 @@
 
 <div class="pt-28 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
 
-  <!-- LEFT: Email Input -->
+  <!-- LEFT SIDE -->
   <div class="bg-white border border-gray-200 shadow-sm rounded-2xl p-8">
 
     <h1 class="text-2xl font-extrabold text-gray-900 mb-4">Your Email</h1>
 
-    <textarea
-      id="email_input"
-      rows="16"
-      class="w-full p-5 text-sm leading-6 rounded-2xl border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none bg-gray-50"
-    >
-Hi,
+    <!-- TEXTAREA -->
+  <textarea
+  [ngModel]="originalEmail()"
+  (ngModelChange)="originalEmail.set($event)"
+  rows="16"
+  class="w-full p-5 text-sm leading-6 rounded-2xl border border-gray-300 
+         focus:ring-2 focus:ring-blue-500 outline-none bg-gray-50"
+  placeholder="Paste or write your email here..."
+></textarea>
 
-I wanted to reach out about the job. I have some experience and think I would be good for the role. Let me know if you want to talk.
 
-Thanks
-    </textarea>
 
-    <!-- Improvement Options -->
+    <!-- VALIDATION MESSAGE -->
+    @if(isInvalid()) {
+      <p class="text-red-600 text-xs mt-2">{{ errorMessage() }}</p>
+    }
+
+    <!-- OPTIONS -->
     <div class="mt-6">
-      <h4 class="text-gray-800 font-semibold mb-3">Improvement Options</h4>
+      <h4 class="text-gray-800 font-semibold mb-3">Choose Improvement Option</h4>
 
       <div class="grid grid-cols-2 gap-3">
-        <button class="p-3 rounded-xl bg-gray-100 hover:bg-blue-50 hover:text-blue-600 transition font-medium text-sm">
-          Make it Professional
-        </button>
-
-        <button class="p-3 rounded-xl bg-gray-100 hover:bg-blue-50 hover:text-blue-600 transition font-medium text-sm">
-          Make it Shorter
-        </button>
-
-        <button class="p-3 rounded-xl bg-gray-100 hover:bg-blue-50 hover:text-blue-600 transition font-medium text-sm">
-          Make it Friendlier
-        </button>
-
-        <button class="p-3 rounded-xl bg-gray-100 hover:bg-blue-50 hover:text-blue-600 transition font-medium text-sm">
-          Fix Grammar
-        </button>
+        @for(option of improvementOptions; track option.id) {
+          <button
+            (click)="selectOption(option.id)"
+            class="p-3 rounded-xl font-medium text-sm transition"
+            [ngClass]="selectedOption() === option.id 
+              ? 'bg-blue-600 text-white shadow' 
+              : 'bg-gray-100 hover:bg-blue-50 hover:text-blue-600'">
+            {{ option.label }}
+          </button>
+        }
       </div>
     </div>
 
-    <!-- Improve Button -->
+    <!-- IMPROVE BUTTON -->
     <button
-    (click)="improveEmail()"
-      class="w-full mt-6 py-3 flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold shadow hover:shadow-md transition"
-    >
+      (click)="improveEmail()"
+      class="w-full mt-6 py-3 flex items-center justify-center gap-2 rounded-xl
+             bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold
+             shadow hover:shadow-md transition disabled:bg-gray-400"
+      [disabled]="isInvalid() || isGenerating()">
+
       <ng-icon name="heroSparkles" class="w-5 h-5"></ng-icon>
-      Improve Email
+
+      @if(isGenerating()) {
+        <span class="animate-pulse">Improving...</span>
+      } @else {
+        <span>Improve Email</span>
+      }
     </button>
 
   </div>
 
-  <!-- RIGHT: AI Generated Email -->
+  <!-- RIGHT SIDE -->
   <div class="bg-white border border-gray-200 shadow-sm rounded-2xl p-8 text-sm">
 
-    <!-- Header -->
+    <!-- HEADER -->
     <div class="flex justify-between items-center">
       <div class="flex items-center gap-2">
         <h1 class="text-2xl font-bold text-gray-900">Improved Email</h1>
@@ -66,69 +74,60 @@ Thanks
           Enhanced
         </span>
       </div>
-
-      <!-- Actions -->
-      <div class="flex items-center gap-4 text-gray-600">
-        <img src="/icons/copy.png" class="w-4 h-4 cursor-pointer hover:opacity-75" />
-        <img src="/icons/download.png" class="w-4 h-4 cursor-pointer hover:opacity-75" />
-        <img src="/icons/generative.png" class="w-4 h-4 cursor-pointer hover:opacity-75" />
-        <img src="/icons/save.png" class="w-4 h-4 cursor-pointer hover:opacity-75" />
-      </div>
     </div>
 
-    <!-- Versions -->
+    <!-- VERSION SWITCH -->
     <div class="flex gap-2 p-1 bg-gray-50 rounded-xl border border-gray-200 my-6">
       @for(index of [1,2,3]; track $index) {
         <button
           class="px-4 py-2 rounded-xl font-medium transition text-sm"
-          [ngClass]="currentVersion === index ? 
-            'bg-white shadow-sm text-blue-600' : 
-            'hover:bg-gray-100 text-gray-600'"
+          [ngClass]="currentVersion === index 
+            ? 'bg-white shadow-sm text-blue-600' 
+            : 'hover:bg-gray-100 text-gray-600'"
           (click)="setVersion(index)">
           Version {{ index }}
         </button>
       }
     </div>
 
-    <!-- Subject -->
+    <!-- SUBJECT -->
     <div class="flex flex-col gap-1 mb-4">
       <label class="font-medium text-sm text-gray-700">Subject</label>
       <input
         type="text"
         class="p-3 text-sm rounded-xl border border-gray-300 outline-none font-semibold"
         [value]="generatedEmails[currentVersion]?.subject"
+        readonly
       />
     </div>
 
-    <!-- Content -->
+    <!-- CONTENT -->
     <div class="flex flex-col gap-1">
       <label class="font-medium text-sm text-gray-700">Improved Email</label>
       <textarea
         rows="18"
         class="p-5 text-[15px] leading-7 border border-gray-300 rounded-xl bg-white roboto-serif focus:ring-2 focus:ring-blue-500 outline-none"
         [value]="generatedEmails[currentVersion]?.content"
+        readonly
       ></textarea>
     </div>
 
-    <!-- Bottom Buttons -->
+    <!-- ACTION BUTTONS -->
     <div class="flex gap-3 mt-6">
       <button
         class="w-2/3 py-3 flex items-center justify-center gap-2 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
-        (click)="copyEmail()"
-      >
+        (click)="copyEmail()">
         <img src="/icons/copy.png" class="w-4 h-4 filter invert brightness-0 saturate-100 hue-rotate-180" />
         Copy Email
       </button>
 
       <button
         class="w-1/3 py-3 flex items-center justify-center gap-2 rounded-xl border border-gray-300 hover:bg-blue-600 hover:text-white transition font-semibold"
-        (click)="downloadPDF()"
-      >
+        (click)="downloadPDF()">
         <img src="/icons/download.png" class="w-4 h-4" />
         PDF
       </button>
     </div>
 
   </div>
-
 </div>

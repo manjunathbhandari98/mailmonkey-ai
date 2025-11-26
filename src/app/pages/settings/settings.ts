@@ -1,16 +1,28 @@
 import { Component } from '@angular/core';
+import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SettingToogle } from '../../components/setting-toogle/setting-toogle';
 import { PageHeader } from '../../core/page-header/page-header';
 import { ToastService } from '../../services/toast-service/toast-service';
 
 @Component({
   selector: 'app-settings',
-  imports: [SettingToogle, PageHeader],
+  imports: [SettingToogle, PageHeader, ReactiveFormsModule],
   templateUrl: './settings.html',
   styleUrl: './settings.scss',
 })
 export class Settings {
-constructor(private toast:ToastService){}
+
+  settingForm!:FormGroup;
+
+constructor(private toast:ToastService,
+  private fb:NonNullableFormBuilder
+){
+  this.settingForm = this.fb.group({
+    firstName:['',[Validators.required]],
+    lastName:['',[Validators.required]],
+    email:['',[Validators.required,Validators.email]]
+  })
+}
 
 alwaysUseTone = true;
 emailNotification = true;
@@ -38,6 +50,10 @@ copyKey(){}
 regenerateKey(){}
 
 onSave(){
+  if(this.settingForm.invalid){
+    this.settingForm.markAllAsTouched();
+    return;
+  }
   this.toast.success("Settings saved Successfully");
 }
 

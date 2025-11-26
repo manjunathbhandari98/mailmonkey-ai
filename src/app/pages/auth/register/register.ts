@@ -1,27 +1,69 @@
+import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { AbstractControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroEye, heroEyeSlash } from '@ng-icons/heroicons/outline';
 import { Logo } from '../../../components/logo/logo';
+import { ToastService } from '../../../services/toast-service/toast-service';
 
 @Component({
   selector: 'app-register',
-  imports: [Logo, RouterLink, NgIconComponent],
-  providers:[provideIcons({
-    heroEye, heroEyeSlash
-  })],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, Logo, RouterLink, NgIconComponent],
+  providers: [
+    provideIcons({ heroEye, heroEyeSlash })
+  ],
   templateUrl: './register.html',
   styleUrl: './register.scss',
 })
 export class Register {
+
   showPassword = signal(false);
   showConfirmPassword = signal(false);
-  togglePassword(){
+
+  registerForm!: FormGroup;
+
+  constructor(
+    private router: Router,
+    private fb: NonNullableFormBuilder,
+    private toast: ToastService
+  ) {
+    this.registerForm = this.fb.group(
+      {
+        fullName: ['', [Validators.required, Validators.minLength(3)]],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        confirmPassword: ['', [Validators.required]],
+      },
+      { validators: this.matchPasswords }
+    );
+  }
+
+  // Password match validator
+  matchPasswords(control: AbstractControl): ValidationErrors | null {
+    const pass = control.get('password')?.value;
+    const confirm = control.get('confirmPassword')?.value;
+
+    return pass === confirm ? null : { mismatch: true };
+  }
+
+  togglePassword() {
     this.showPassword.update(v => !v);
   }
 
-  toggleConfirmPassword(){
+  toggleConfirmPassword() {
     this.showConfirmPassword.update(v => !v);
+  }
+
+  onRegister() {
+    if (this.registerForm.invalid) {
+      this.registerForm.markAllAsTouched();
+      return;
+    }
+
+    this.toast.success("User Registered Successfully");
+    this.router.navigate(['/login']);
   }
 
 }
