@@ -12,6 +12,7 @@
     @for (action of quickActions; track $index) {
 
       <div
+      [routerLink]="[action.link]" 
         class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm
                hover:shadow-xl transition-all cursor-pointer group relative">
 

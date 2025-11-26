@@ -6,7 +6,9 @@ import { Login } from './pages/auth/login/login';
 import { Register } from './pages/auth/register/register';
 import { Dashboard } from './pages/dashboard/dashboard';
 import { EmailGenerator } from './pages/email-generator/email-generator';
+import { EmailImprover } from './pages/email-improver/email-improver';
 import { EmailOutput } from './pages/email-output/email-output';
+import { History } from './pages/history/history';
 import { Home } from './pages/home/home';
 import { Settings } from './pages/settings/settings';
 import { Templates } from './pages/templates/templates';
@@ -34,6 +36,10 @@ export const routes: Routes = [
       { path: 'templates', component: Templates },
       { path: 'history', component: History },
       { path: 'settings', component: Settings },
+      {path:'generate-email',component:EmailGenerator},
+      {path:'improve-email',component:EmailImprover},
+      {path:'templates',component:Templates},
+      {path:'history', component:History}
     ]
   },
 

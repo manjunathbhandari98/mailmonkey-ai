@@ -1,1 +1,108 @@
-<p>history works!</p>
+<!-- Page Header -->
+<app-page-header [pageTitle]="'Email History'"></app-page-header>
+
+<div class="pt-28 max-w-7xl mx-auto px-4">
+
+  <!-- Header Row -->
+  <div class="flex justify-between items-center mb-8">
+    <div>
+      <h2 class="text-3xl font-bold text-gray-900">Your Email History</h2>
+      <p class="text-gray-500 text-sm">View, download or reuse your previously generated emails</p>
+    </div>
+
+    <button class="px-4 py-2 rounded-xl bg-blue-600 text-white font-semibold text-sm shadow hover:bg-blue-700">
+      Clear History
+    </button>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="bg-white border border-gray-200 rounded-xl p-3 mb-6 flex items-center gap-3 shadow-sm">
+    <ng-icon name="heroMagnifyingGlass" class="w-5 h-5 text-gray-500"></ng-icon>
+    <input 
+      type="text" 
+      class="w-full bg-transparent outline-none text-sm"
+      placeholder="Search emails...">
+  </div>
+
+  <!-- History List -->
+  <div class="bg-white border border-gray-200 rounded-2xl shadow-sm divide-y divide-gray-100">
+
+    @for(item of emailHistory; track $index) {
+
+      <div 
+        class="p-5 flex flex-col md:flex-row justify-between gap-5 hover:bg-gray-50 transition"
+      >
+
+        <!-- LEFT: Email Info -->
+        <div class="flex flex-col gap-2 md:w-2/3">
+
+          <!-- Title + Tags -->
+          <div class="flex flex-wrap items-center gap-2">
+            <h3 class="font-semibold text-lg text-gray-900">{{ item.title }}</h3>
+            
+            <span class="px-2 py-[3px] rounded-full text-xs font-medium bg-blue-100 text-blue-700">
+              {{ item.type }}
+            </span>
+
+            <span class="px-2 py-[3px] rounded-full text-xs font-medium bg-gray-100 text-gray-700">
+              {{ item.tone }}
+            </span>
+          </div>
+
+          <!-- Preview -->
+          <p class="text-sm text-gray-600 line-clamp-2">
+            {{ item.preview }}
+          </p>
+
+          <!-- Meta -->
+          <div class="flex items-center flex-wrap gap-5 mt-1 text-xs text-gray-500">
+            <span>{{ item.wordCount }} words</span>
+            <span>{{ item.charCount }} chars</span>
+            <span>Version {{ item.version }}</span>
+            <span class="text-gray-400">•</span>
+            <span>{{ item.createdAt | date:'medium' }}</span>
+          </div>
+
+        </div>
+
+        <!-- RIGHT: Actions -->
+        <div class="flex items-center gap-5 md:gap-4 self-end md:self-center text-gray-500 text-sm">
+
+          <ng-icon 
+            name="heroDocumentDuplicate"
+            class="w-5 h-5 cursor-pointer hover:text-blue-600"
+            (click)="copy(item)">
+          </ng-icon>
+
+          <ng-icon 
+            name="heroArrowDownTray"
+            class="w-5 h-5 cursor-pointer hover:text-blue-600"
+            (click)="download(item)">
+          </ng-icon>
+
+          <ng-icon 
+            name="heroArrowPath"
+            class="w-5 h-5 cursor-pointer hover:text-blue-600"
+            (click)="regenerate(item)">
+          </ng-icon>
+
+          <button 
+            class="px-4 py-1.5 rounded-xl border border-gray-300 hover:bg-blue-600 hover:text-white transition text-sm"
+            (click)="view(item)">
+            View
+          </button>
+
+        </div>
+
+      </div>
+
+    }
+  </div>
+</div>
+
+@if(selectedEmail){
+    <app-view-email-modal
+      [email]="selectedEmail"
+      (closeModal)="closeModal()"
+    ></app-view-email-modal>
+}
