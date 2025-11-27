@@ -350,7 +350,7 @@ Senior Developer
 
 
 
-  <div class="flex gap-2 flex justify-end gap-4 mt-4 text-sm [&>*]:cursor-pointer">
+  <div class="flex gap-2 flex justify-start gap-4 mt-4 text-sm [&>*]:cursor-pointer">
       <!-- Save Button -->
       
         <app-button 
@@ -368,4 +368,30 @@ Senior Developer
 
   </div>
       
+  <!-- Logout Button (Standalone) -->
+  <div class="bg-red-50 p-6 rounded-2xl shadow-sm border border-red-200 mt-10">
+
+  <h3 class="text-xl font-bold text-red-700">Danger Zone</h3>
+  <p class="text-red-500 text-sm mt-1">
+    Actions that can permanently affect your account.
+  </p>
+
+  <div class="mt-6 flex justify-between items-center">
+
+    <div>
+      <p class="font-semibold text-red-700">Logout</p>
+      <p class="text-red-500 text-sm">Sign out from your account</p>
+    </div>
+
+    <app-button
+      label="Logout"
+      variant="danger"
+      customClass="px-5 py-2"
+      (clicked)="logout()"
+    />
+  </div>
+
 </div>
+
+</div>
+

@@ -8,32 +8,13 @@
 
   @for (stat of analytics; track $index) {
 
-    <div
-      class="group p-8 bg-white rounded-2xl shadow-sm border border-gray-100 
-      hover:shadow-xl hover:border-transparent transition-all duration-300">
+     <app-feature-card
+      [count]="stat.value"
+      [label]="stat.label"
+      [icon]="stat.icon"
+      [iconBg]="'linear-gradient(to bottom right, #6366f1, #3b82f6)'"
 
-      <!-- Icon container -->
-      <div
-        class="w-14 h-14 rounded-xl bg-blue-500/20 flex items-center justify-center 
-        shadow-md group-hover:scale-105 transition-transform duration-300">
-        <ng-icon 
-          [name]="stat.icon" 
-            aria-setsize="20"
-            style="color:blue; width:26px; height: 26px;">
-        </ng-icon>
-      </div>
-
-      <!-- Value -->
-      <h2 class="text-2xl font-bold text-gray-900 mt-5 tracking-tight">
-        {{ stat.value }}
-      </h2>
-
-      <!-- Label -->
-      <p class="text-sm text-gray-600 mt-2 leading-relaxed">
-        {{ stat.label }}
-      </p>
-
-    </div>
+    />
 
   }
 

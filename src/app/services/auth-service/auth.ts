@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -7,7 +8,7 @@ import { environment } from '../../environments/environment';
 })
 export class AuthService {
 
-  constructor(private http:HttpClient){}
+  constructor(private http:HttpClient, private router:Router){}
 
   private baseUrl = environment.apiUrl;
 
@@ -25,5 +26,6 @@ export class AuthService {
 
   logout(){
      localStorage.removeItem('token');
+    this.router.navigate(['/login'])
   }
 }

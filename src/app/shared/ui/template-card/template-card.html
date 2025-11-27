@@ -1,0 +1,54 @@
+<div
+        class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm min-h-64
+               hover:shadow-lg hover:border-blue-500 transition-all cursor-pointer flex flex-col gap-4"
+      >
+
+        <!-- Title -->
+        <h2 class="text-lg font-semibold text-gray-900 leading-tight">
+          {{ title }}
+        </h2>
+
+        <!-- Badges -->
+        <div class="flex gap-2 text-xs font-medium">
+          <span class="px-3 py-1 rounded-full bg-blue-50 text-blue-600">
+            {{ categoryName }}
+          </span>
+          <span class="px-3 py-1 rounded-full bg-gray-100 text-gray-700 border border-gray-200">
+            {{ tone }}
+          </span>
+        </div>
+
+        <!-- Preview -->
+        <p class="text-gray-600 text-sm leading-6 line-clamp-4 border-t border-gray-100 pt-3">
+          {{ preview }}
+        </p>
+
+        <!-- Footer -->
+        <div class="flex items-center justify-between mt-auto pt-2 border-t border-gray-200">
+
+          <!-- Likes -->
+          <div class="flex items-center gap-1 text-gray-600 text-sm">
+            <ng-icon name="heroHeart" class="w-4 h-4 text-red-500"></ng-icon>
+            {{ likes }}
+          </div>
+
+          <!-- Actions -->
+          <div class="flex items-center gap-3">
+
+            <!-- Save -->
+           <button
+              class="p-2 rounded-lg cursor-pointer w-8 h-8 flex items-center justify-center hover:bg-blue-600 hover:text-white transition"
+            >
+              <ng-icon name="heroBookmark" class="w-5 h-5"></ng-icon>
+            </button> 
+
+            <!-- Use Template -->
+          
+             <app-button 
+             label="Use Template"
+             customClass="px-4 py-2 !text-sm"
+             />
+          </div>
+
+        </div>
+      </div>

@@ -5,11 +5,12 @@ import { heroCheck } from '@ng-icons/heroicons/outline';
 import { plans } from '../../../../data/app-data';
 import { ToastService } from '../../../../services/toast-service/toast-service';
 import { Button } from '../../../../shared/ui/button/button';
+import { PricingCard } from '../../../../shared/ui/pricing-card/pricing-card';
 
 @Component({
   selector: 'app-pricing',
   standalone:true,
-  imports: [NgIconComponent,CommonModule, Button],
+  imports: [NgIconComponent,CommonModule, Button, PricingCard],
   providers:[
     provideIcons({heroCheck})
   ],

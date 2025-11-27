@@ -13,17 +13,6 @@
     </p>
   </div>
 
-  <!-- Search Bar -->
-  <div
-    class="my-6 w-full bg-white border border-gray-300 rounded-xl shadow-sm flex items-center gap-3 p-4
-           focus-within:ring-2 focus-within:ring-blue-600 transition">
-    <input
-      type="text"
-      class="w-full bg-transparent outline-none text-gray-700 text-sm"
-      placeholder="Search templates..."
-    />
-  </div>
-
   <!-- Section Title -->
   <h2 class="font-bold text-xl text-gray-900 mt-6 mb-3">Browse by Category</h2>
 
@@ -33,6 +22,7 @@
     @for(category of templateCategories; track $index) {
 
       <div
+      [routerLink]="['/templates/category',category.slug]" 
         class="bg-white p-5 rounded-2xl shadow-sm 
                hover:shadow-xl hover:border-blue-500 transition-all cursor-pointer group flex gap-4 items-center">
 
@@ -54,13 +44,26 @@
             {{ category.title }}
           </h4>
           <p class="text-xs text-gray-500">
-            {{ category.count }} templates
+            {{ getCategoryCount(category.id) }} templates
           </p>
         </div>
 
       </div>
 
     }
+
+  </div>
+
+    <!-- Search Bar -->
+  <div
+    class="my-6 w-full bg-white border border-gray-300 rounded-xl shadow-sm flex items-center gap-3 p-4
+           focus-within:ring-2 focus-within:ring-blue-600 transition">
+   <input
+  type="text"
+  class="w-full bg-transparent outline-none text-gray-700 text-sm"
+  placeholder="Search templates..."
+  (input)="searchTerm.set($any($event.target).value)"
+/>
 
   </div>
 
@@ -78,63 +81,15 @@
   <!-- Templates Grid -->
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-    @for (template of emailTemplates; track $index) {
+   @for (template of filteredTemplates(); track $index) {
 
-      <div
-        class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm
-               hover:shadow-lg hover:border-blue-500 transition-all cursor-pointer flex flex-col gap-4"
-      >
-
-        <!-- Title -->
-        <h2 class="text-lg font-semibold text-gray-900 leading-tight">
-          {{ template.title }}
-        </h2>
-
-        <!-- Badges -->
-        <div class="flex gap-2 text-xs font-medium">
-          <span class="px-3 py-1 rounded-full bg-blue-50 text-blue-600">
-            {{ template.category }}
-          </span>
-          <span class="px-3 py-1 rounded-full bg-gray-100 text-gray-700 border border-gray-200">
-            {{ template.tone }}
-          </span>
-        </div>
-
-        <!-- Preview -->
-        <p class="text-gray-600 text-sm leading-6 line-clamp-4 border-t border-gray-100 pt-3">
-          {{ template.preview }}
-        </p>
-
-        <!-- Footer -->
-        <div class="flex items-center justify-between mt-auto pt-2 border-t border-gray-200">
-
-          <!-- Likes -->
-          <div class="flex items-center gap-1 text-gray-600 text-sm">
-            <ng-icon name="heroHeart" class="w-4 h-4 text-red-500"></ng-icon>
-            {{ template.likes }}
-          </div>
-
-          <!-- Actions -->
-          <div class="flex items-center gap-3">
-
-            <!-- Save -->
-           <button
-              class="p-2 rounded-lg cursor-pointer w-8 h-8 flex items-center justify-center hover:bg-blue-600 hover:text-white transition"
-            >
-              <ng-icon name="heroBookmark" class="w-5 h-5"></ng-icon>
-            </button> 
-
-            <!-- Use Template -->
-          
-             <app-button 
-             label="Use Template"
-             customClass="px-4 py-2 !text-sm"
-             />
-          </div>
-
-        </div>
-      </div>
-
+      <app-template-card
+      [title]="template.title"
+      [categoryName]="template.categoryName"
+      [tone]="template.tone"
+      [preview]="template.preview"
+      [likes]="template.likes"
+      />
     }
 
   </div>

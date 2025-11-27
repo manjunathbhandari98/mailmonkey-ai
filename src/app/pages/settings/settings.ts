@@ -3,6 +3,7 @@ import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } fr
 import { SettingToogle } from '../../components/setting-toogle/setting-toogle';
 import { PageHeader } from '../../core/page-header/page-header';
 import { currentUserInfo } from '../../data/app-data';
+import { AuthService } from '../../services/auth-service/auth';
 import { ToastService } from '../../services/toast-service/toast-service';
 import { Button } from '../../shared/ui/button/button';
 
@@ -19,7 +20,8 @@ export class Settings {
   settingForm!:FormGroup;
 
 constructor(private toast:ToastService,
-  private fb:NonNullableFormBuilder
+  private fb:NonNullableFormBuilder,
+  private auth:AuthService
 ){
   this.settingForm = this.fb.group({
     firstName:[this.userInfo.firstName,[Validators.required]],
@@ -62,5 +64,9 @@ onSave(){
 }
 
 onCancel(){}
+
+logout(){
+  this.auth.logout();
+}
 
 }

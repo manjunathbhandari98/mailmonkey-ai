@@ -1,19 +1,4 @@
-<div class="w-6xl mx-auto p-5">
-    <!-- Header -->
-      <h1 class="text-4xl md:text-5xl font-extrabold text-center tracking-tight">
-   Simple, Transparent Pricing
-  </h1>
-  <h4 class="text-lg text-center mt-3 text-gray-500 max-w-2xl mx-auto">
-   Choose the plan that fits your needs
-  </h4>
-
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-  @for (plan of plans(); track $index) {
-
-    <app-pricing-card [plan]="plan"/>
-
-    <!-- <div class="bg-white my-10 relative p-6 rounded-2xl flex flex-col justify-between"
+ <div class="bg-white my-10 relative p-6 rounded-2xl flex flex-col justify-between"
     [ngClass]="{
         'shadow-md hover:shadow-lg': !plan.highlight,
     'shadow-2xl scale-[1.03] border-blue-600':plan.highlight
@@ -56,10 +41,5 @@
   (clicked)="onPlanSelected(plan)"
   [variant]="getVarient(plan)"
 />
-    </div> -->
 
-  }
-
-</div>
-
-</div>
+    </div>

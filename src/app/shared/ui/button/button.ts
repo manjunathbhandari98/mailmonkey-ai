@@ -14,7 +14,7 @@ export class Button {
   @Input() loading: boolean = false;
   @Input() disabled: boolean = false;
 
-  @Input() variant: 'primary' | 'outline'|'secondary'|'ghost' = 'primary';
+  @Input() variant: 'primary' | 'outline'|'secondary'|'ghost' | 'danger' = 'primary';
 
   @Input() iconType: 'ng-icon' | 'svg' | 'img' | null = null;
   @Input() iconValue: string | null = null;

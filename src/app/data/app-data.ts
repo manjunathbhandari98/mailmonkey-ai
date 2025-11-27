@@ -184,37 +184,51 @@ export const recentEmails = [
 
 export const templateCategories = [
   {
+    id: 1,
     title: "Job Application",
+    slug: "job-application",
     count: 12,
     icon: "heroBriefcase"
   },
   {
+    id: 2,
     title: "Office Communication",
+    slug: "office-communication",
     count: 18,
     icon: "heroBuildingOffice"
   },
   {
+    id: 3,
     title: "Marketing",
+    slug: "marketing",
     count: 15,
     icon: "heroMegaphone"
   },
   {
+    id: 4,
     title: "Sales",
+    slug: "sales",
     count: 10,
     icon: "heroChartBar"
   },
   {
+    id: 5,
     title: "Cold Outreach",
+    slug: "cold-outreach",
     count: 8,
     icon: "heroEnvelope"
   },
   {
+    id: 6,
     title: "HR Templates",
+    slug: "hr-templates",
     count: 14,
     icon: "heroUserGroup"
   },
   {
+    id: 7,
     title: "Customer Support",
+    slug: "customer-support",
     count: 20,
     icon: "heroChatBubbleLeftRight"
   }
@@ -222,11 +236,13 @@ export const templateCategories = [
 
 export const emailTemplates = [
   // ------------------------------
-  // JOB APPLICATION
+  // JOB APPLICATION (categoryId = 1)
   // ------------------------------
   {
-    id: 1,
-    category: "Job Application",
+    templateId: 1,
+    categoryId: 1,
+    categoryName: "Job Application",
+    templateSlug: "software-developer-application",
     title: "Job Application – Software Developer",
     preview: "I’m excited to apply for the Software Developer position...",
     subject: "Application for Software Developer Position",
@@ -234,17 +250,13 @@ export const emailTemplates = [
     likes: 128,
     content: `Dear Hiring Manager,
 
-I hope you're doing well. I am writing to express my interest in the Software Developer position at your company. With hands-on experience in building scalable applications and strong problem-solving skills, I am confident I can contribute effectively to your team.
-
-I have attached my resume for your review and would appreciate the opportunity to discuss how my background aligns with your requirements.
-
-Thank you for your time.
-Best regards,
-John Doe`
+I hope you're doing well. I am writing to express my interest...`,
   },
   {
-    id: 2,
-    category: "Job Application",
+    templateId: 2,
+    categoryId: 1,
+    categoryName: "Job Application",
+    templateSlug: "cold-job-application",
     title: "Cold Job Application",
     preview: "I’m reaching out regarding potential roles at your company...",
     subject: "Inquiry About Job Opportunities",
@@ -252,20 +264,17 @@ John Doe`
     likes: 96,
     content: `Hello,
 
-I hope you're doing well. I wanted to reach out to express my interest in potential openings at your company. I greatly admire your work culture and the impactful products you build.
-
-If there are any roles aligned with my skill set, I would truly appreciate the chance to connect.
-
-Warm regards,
-John Doe`
+I hope you're doing well. I wanted to reach out...`,
   },
 
   // ------------------------------
-  // OFFICE COMMUNICATION
+  // OFFICE COMMUNICATION (categoryId = 2)
   // ------------------------------
   {
-    id: 3,
-    category: "Office Communication",
+    templateId: 3,
+    categoryId: 2,
+    categoryName: "Office Communication",
+    templateSlug: "leave-request",
     title: "Leave Request Email",
     preview: "I would like to request a day of leave on...",
     subject: "Leave Request for [Date]",
@@ -273,16 +282,13 @@ John Doe`
     likes: 142,
     content: `Hi [Manager Name],
 
-I hope you're doing well. I would like to request leave on [Date] due to personal reasons. I will ensure all pending tasks are completed or handed over prior to my absence.
-
-Please let me know if any additional information is required.
-
-Regards,
-John Doe`
+I hope you're doing well. I would like to request leave...`,
   },
   {
-    id: 4,
-    category: "Office Communication",
+    templateId: 4,
+    categoryId: 2,
+    categoryName: "Office Communication",
+    templateSlug: "weekly-project-update",
     title: "Project Update Email",
     preview: "Here’s the weekly update for the project...",
     subject: "Weekly Project Update",
@@ -290,24 +296,17 @@ John Doe`
     likes: 109,
     content: `Hello Team,
 
-Here is the weekly update for the project:
-
-• Completed module A  
-• In progress: module B  
-• Pending: Testing phase  
-
-Please let me know if any adjustments are required.
-
-Regards,
-John Doe`
+Here is the weekly update for the project...`,
   },
 
   // ------------------------------
-  // MARKETING
+  // MARKETING (categoryId = 3)
   // ------------------------------
   {
-    id: 5,
-    category: "Marketing",
+    templateId: 5,
+    categoryId: 3,
+    categoryName: "Marketing",
+    templateSlug: "product-announcement",
     title: "Product Announcement",
     preview: "We're excited to announce our new product...",
     subject: "Introducing Our New Product!",
@@ -315,16 +314,13 @@ John Doe`
     likes: 214,
     content: `Hello,
 
-We’re excited to announce the launch of our newest product designed to help you simplify your workflow. It comes with powerful new features and improved performance.
-
-Stay tuned for upcoming offers and updates.
-
-Best,
-Marketing Team`
+We’re excited to announce the launch...`,
   },
   {
-    id: 6,
-    category: "Marketing",
+    templateId: 6,
+    categoryId: 3,
+    categoryName: "Marketing",
+    templateSlug: "monthly-newsletter",
     title: "Monthly Newsletter",
     preview: "Here’s your monthly update from our team...",
     subject: "Your Monthly Newsletter",
@@ -332,24 +328,17 @@ Marketing Team`
     likes: 173,
     content: `Hello,
 
-Here’s your monthly update from our team:
-
-• New features released  
-• Exclusive blog insights  
-• Upcoming events  
-
-Thank you for being a valued reader.
-
-Warm regards,
-The Team`
+Here’s your monthly update from our team...`,
   },
 
   // ------------------------------
-  // SALES
+  // SALES (categoryId = 4)
   // ------------------------------
   {
-    id: 7,
-    category: "Sales",
+    templateId: 7,
+    categoryId: 4,
+    categoryName: "Sales",
+    templateSlug: "product-demo-request",
     title: "Product Demo Request",
     preview: "We’d love to give you a personalized demo...",
     subject: "Schedule Your Product Demo",
@@ -357,16 +346,13 @@ The Team`
     likes: 189,
     content: `Hi [Client Name],
 
-Thank you for showing interest in our product. We’d be happy to arrange a personalized demo at your convenience.
-
-Please let me know your preferred date and time.
-
-Best,
-Sales Team`
+Thank you for showing interest in our product...`,
   },
   {
-    id: 8,
-    category: "Sales",
+    templateId: 8,
+    categoryId: 4,
+    categoryName: "Sales",
+    templateSlug: "discount-offer",
     title: "Exclusive Discount Offer",
     preview: "We’re excited to offer you an exclusive discount...",
     subject: "Exclusive Discount Just for You!",
@@ -374,20 +360,17 @@ Sales Team`
     likes: 241,
     content: `Hi,
 
-We’re excited to offer you an exclusive limited-time discount on our product. This is a great chance to get premium features at a reduced price.
-
-Let us know if you'd like to upgrade.
-
-Regards,
-Sales Team`
+We’re excited to offer you a limited-time discount...`,
   },
 
   // ------------------------------
-  // COLD OUTREACH
+  // COLD OUTREACH (categoryId = 5)
   // ------------------------------
   {
-    id: 9,
-    category: "Cold Outreach",
+    templateId: 9,
+    categoryId: 5,
+    categoryName: "Cold Outreach",
+    templateSlug: "potential-client-outreach",
     title: "Potential Client Outreach",
     preview: "I came across your business and wanted to connect...",
     subject: "Quick Question About Your Business",
@@ -395,16 +378,13 @@ Sales Team`
     likes: 157,
     content: `Hi [Name],
 
-I came across your work and was impressed with what you're building. I believe our solution can help streamline your process and improve efficiency.
-
-Would you be open to a quick call sometime this week?
-
-Thanks,
-John Doe`
+I came across your work and was impressed...`,
   },
   {
-    id: 10,
-    category: "Cold Outreach",
+    templateId: 10,
+    categoryId: 5,
+    categoryName: "Cold Outreach",
+    templateSlug: "networking-email",
     title: "Networking Email",
     preview: "I’d love to connect and learn more about your work...",
     subject: "Would Love to Connect!",
@@ -412,20 +392,17 @@ John Doe`
     likes: 111,
     content: `Hello [Name],
 
-I hope you're doing well. I’ve been following your work in [industry], and I find it very inspiring. I would love to connect and learn from your experience.
-
-Looking forward to connecting.
-
-Regards,
-John Doe`
+I hope you're doing well. I’ve been following your work...`,
   },
 
   // ------------------------------
-  // HR TEMPLATES
+  // HR TEMPLATES (categoryId = 6)
   // ------------------------------
   {
-    id: 11,
-    category: "HR Templates",
+    templateId: 11,
+    categoryId: 6,
+    categoryName: "HR Templates",
+    templateSlug: "interview-invitation",
     title: "Interview Invitation",
     preview: "We’d like to invite you for an interview...",
     subject: "Interview Invitation – [Role Name]",
@@ -433,16 +410,13 @@ John Doe`
     likes: 202,
     content: `Hi [Candidate Name],
 
-We’re pleased to inform you that you have been shortlisted for the [Role Name] position. We’d like to schedule an interview with you.
-
-Please share your availability for this week.
-
-Best,
-HR Team`
+We’re pleased to inform you...`,
   },
   {
-    id: 12,
-    category: "HR Templates",
+    templateId: 12,
+    categoryId: 6,
+    categoryName: "HR Templates",
+    templateSlug: "offer-letter-email",
     title: "Offer Letter Email",
     preview: "We’re excited to offer you the position of...",
     subject: "Official Offer – [Role Name]",
@@ -450,20 +424,17 @@ HR Team`
     likes: 186,
     content: `Hi [Candidate Name],
 
-We are delighted to offer you the position of [Role Name] at our organization. Attached is your official offer letter containing all details.
-
-We look forward to having you on our team.
-
-Regards,
-HR Team`
+We are delighted to offer you the position...`,
   },
 
   // ------------------------------
-  // CUSTOMER SUPPORT
+  // CUSTOMER SUPPORT (categoryId = 7)
   // ------------------------------
   {
-    id: 13,
-    category: "Customer Support",
+    templateId: 13,
+    categoryId: 7,
+    categoryName: "Customer Support",
+    templateSlug: "support-acknowledgement",
     title: "Support Acknowledgment",
     preview: "We’ve received your support request...",
     subject: "We’ve Received Your Support Request",
@@ -471,16 +442,13 @@ HR Team`
     likes: 168,
     content: `Hello,
 
-We’ve received your support request and our team is looking into it. You can expect a response within 24 hours.
-
-Thank you for your patience.
-
-Best,
-Support Team`
+We’ve received your support request...`,
   },
   {
-    id: 14,
-    category: "Customer Support",
+    templateId: 14,
+    categoryId: 7,
+    categoryName: "Customer Support",
+    templateSlug: "issue-resolved",
     title: "Issue Resolved Email",
     preview: "Your issue has now been resolved...",
     subject: "Your Issue Has Been Resolved",
@@ -488,14 +456,11 @@ Support Team`
     likes: 194,
     content: `Hello,
 
-Good news! Your reported issue has been successfully resolved. Please check and confirm that everything is working as expected.
-
-If you need further help, feel free to reach out.
-
-Regards,
-Support Team`
+Good news! Your reported issue has been resolved...`,
   }
 ];
+
+
 
 
 export const emailHistory = [

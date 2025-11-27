@@ -9,11 +9,12 @@ import {
 
 import { Component, Input } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { FeatureCard } from '../../../../shared/ui/feature-card/feature-card';
 
 @Component({
   selector: 'app-features',
   standalone:true,
-  imports: [NgIconComponent
+  imports: [NgIconComponent, FeatureCard
   ],
   providers: [
   provideIcons({

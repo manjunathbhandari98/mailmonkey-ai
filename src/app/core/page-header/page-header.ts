@@ -1,5 +1,5 @@
+import { Location } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroArrowLeft } from '@ng-icons/heroicons/outline';
 import { Logo } from '../../components/logo/logo';
@@ -15,9 +15,9 @@ import { Logo } from '../../components/logo/logo';
   styleUrl: './page-header.scss',
 })
 export class PageHeader {
-  constructor(private router:Router){}
+  constructor(private location:Location){}
  @Input() pageTitle = '';
  goBack(){
-  this.router.navigate(['dashboard'])
+  this.location.back();
  }
 }

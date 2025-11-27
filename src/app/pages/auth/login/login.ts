@@ -6,6 +6,7 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroEye, heroEyeSlash } from '@ng-icons/heroicons/outline';
 
 import { Logo } from '../../../components/logo/logo';
+import { AuthService } from '../../../services/auth-service/auth';
 import { Button } from '../../../shared/ui/button/button';
 
 @Component({
@@ -31,7 +32,8 @@ export class Login {
 
   constructor(
     private fb: NonNullableFormBuilder,
-    private router: Router
+    private router: Router,
+    private auth:AuthService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -51,8 +53,9 @@ export class Login {
       this.loginForm.markAllAsTouched();
       return;
     }
-
-    localStorage.setItem('jwt', 'fakejwt');
+    const jwt = 'FakeJwt'
+    // this.auth.login(jwt)
+    localStorage.setItem('token',jwt)
     this.router.navigate(['/dashboard']);
   }
 }

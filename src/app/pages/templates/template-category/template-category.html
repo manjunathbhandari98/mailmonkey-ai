@@ -1,0 +1,26 @@
+<app-page-header [pageTitle]="categoryName() + ' Templates'" />
+
+<div class="pt-28 max-w-7xl mx-auto px-4">
+
+  <!-- Title Section -->
+  <div class="flex flex-col gap-2 mb-6">
+    <h1 class="text-2xl font-semibold uppercase tracking-tight text-gray-900">
+      {{categoryName()}} Templates
+    </h1>
+    <p class="text-sm text-gray-600 max-w-2xl">
+      Choose from professionally crafted templates for {{categoryName()}}
+    </p>
+  </div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  @for (template of templates; track $index){
+      <app-template-card
+        [title]="template.title"
+        [categoryName]="template.categoryName"
+        [tone]="template.tone"
+        [preview]="template.preview"
+        [likes]="template.likes"
+        />
+  }
+</div>
+
+</div>
