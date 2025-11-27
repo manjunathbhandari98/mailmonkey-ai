@@ -3,12 +3,13 @@ import { Component } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroBookmark, heroBriefcase, heroBuildingOffice, heroChartBar, heroChatBubbleLeftRight, heroEnvelope, heroHeart, heroMegaphone, heroUserGroup } from '@ng-icons/heroicons/outline';
 import { PageHeader } from '../../core/page-header/page-header';
+import { Button } from '../../shared/ui/button/button';
 import { emailTemplates, templateCategories } from './../../data/app-data';
 
 @Component({
   selector: 'app-templates',
   standalone:true,
-  imports: [PageHeader,NgIconComponent, CommonModule],
+  imports: [PageHeader,NgIconComponent, CommonModule, Button],
   providers:[provideIcons({
     heroBriefcase,
     heroBuildingOffice, 

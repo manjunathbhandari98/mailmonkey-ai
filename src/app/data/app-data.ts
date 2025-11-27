@@ -5,6 +5,12 @@
     { label: 'Users', description: 'Happy customers', value: '5K+' }
   ];
 
+  export const currentUserInfo = {
+    firstName:'John',
+    lastName:'Doe',
+    email:'Jhon@mail.com'
+  }
+
   export const featureSection = {
   heading: "Everything You Need to Communicate Better",
   subheading: "Powerful features designed for professionals who value their time",

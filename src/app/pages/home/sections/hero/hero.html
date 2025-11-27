@@ -17,24 +17,40 @@
 
   <!-- Call to Action Buttons -->
   <div class="mt-6 flex gap-4">
-    <button
+    <!-- <button
       (click)="goToLogin()"
       class="px-8 py-2 bg-blue-600 flex items-center gap-2 text-white rounded-xl text-md shadow hover:bg-blue-700 transition"
     >
-      Generate Email Now
+      Generate Email Now -->
       <!-- Right Icon -->
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+      <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
   <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
 </svg>
 
-    </button>
+    </button> -->
 
+    <app-button
+    label="Generate Email Now"
+    iconType="ng-icon"
+    customClass="px-8 py-3"
+    iconPosition = "right"
+    iconValue="heroArrowRight"
+    (clicked)="goToLogin()"  
+    />
+
+    <app-button
+    (clicked) = "goToLogin()"
+    label="Try Demo"
+    customClass=""
+    variant="outline"
+    />
+<!-- 
     <button
       (click)="goToLogin()"
       class="px-8 py-2 bg-white border border-gray-300 rounded-xl text-lg shadow hover:bg-gray-100 transition"
     >
       Try Demo
-    </button>
+    </button> -->
   </div>
 
   <!-- Features Preview -->

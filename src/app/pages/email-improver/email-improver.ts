@@ -8,11 +8,12 @@ import {
 } from '@ng-icons/heroicons/outline';
 import { PageHeader } from '../../core/page-header/page-header';
 import { ToastService } from '../../services/toast-service/toast-service';
+import { Button } from '../../shared/ui/button/button';
 
 @Component({
   selector: 'app-email-improver',
   standalone: true,
-  imports: [CommonModule, FormsModule, NgIconComponent, PageHeader],
+  imports: [CommonModule, FormsModule, NgIconComponent, PageHeader, Button],
   providers: [
     provideIcons({ heroSparkles, heroCheckBadge })
   ],

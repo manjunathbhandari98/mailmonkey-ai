@@ -10,11 +10,12 @@ import {
 import { PageHeader } from '../../core/page-header/page-header';
 import { emailHistory } from '../../data/app-data';
 import { ViewEmailModal } from '../../modal/view-email-modal/view-email-modal';
+import { Button } from '../../shared/ui/button/button';
 
 @Component({
   selector: 'app-history',
   standalone: true,
-  imports: [NgIconComponent, PageHeader, DatePipe, ViewEmailModal],
+  imports: [NgIconComponent, PageHeader, DatePipe, ViewEmailModal, Button],
   providers: [provideIcons({
     heroDocumentDuplicate,
     heroArrowDownTray,

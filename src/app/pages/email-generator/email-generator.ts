@@ -4,12 +4,14 @@ import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } fr
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroArrowDown, heroArrowPath, heroBookmark, heroClipboard, heroSparkles } from '@ng-icons/heroicons/outline';
 import { PageHeader } from '../../core/page-header/page-header';
+import { EmailGenerationService } from '../../services/email-generation-service/email-generation-service';
 import { ToastService } from '../../services/toast-service/toast-service';
+import { Button } from '../../shared/ui/button/button';
 
 @Component({
   selector: 'app-email-generator',
   standalone: true,
-  imports: [PageHeader, NgIconComponent, ReactiveFormsModule, CommonModule],
+  imports: [PageHeader, NgIconComponent, ReactiveFormsModule, CommonModule, Button],
   providers: [provideIcons({ heroSparkles, heroClipboard, heroArrowDown, heroBookmark, heroArrowPath })],
   templateUrl: './email-generator.html',
   styleUrl: './email-generator.scss',
@@ -29,7 +31,11 @@ export class EmailGenerator {
   // generation spinner
   isGenerating = signal(false);
 
-  constructor(private fb: NonNullableFormBuilder, private toast: ToastService) {
+  constructor(
+    private fb: NonNullableFormBuilder,
+     private toast: ToastService,
+    private emailService: EmailGenerationService
+    ) {
     this.emailGenerationForm = this.fb.group({
       receiver: ['', [Validators.required]],
       sender: ['', [Validators.required]],
@@ -39,6 +45,7 @@ export class EmailGenerator {
       keyPoints: ['', [Validators.required]]
     });
   }
+
 
   // generate: simulate async call, populate 3 versions
   generateEmail() {
@@ -60,6 +67,19 @@ export class EmailGenerator {
       subject?: string;
       keyPoints: string;
     };
+
+    this.emailService.generateEmail(v).subscribe({
+      next:(res:any) =>{
+        this.generatedEmails[this.currentVersion] = {
+          subject: res.subject,
+          content: res.content
+        }
+      },
+      error:(err:any) =>{
+        console.error(err);
+        
+      }
+    })
 
     // replace with real API call — below is mocked
     setTimeout(() => {

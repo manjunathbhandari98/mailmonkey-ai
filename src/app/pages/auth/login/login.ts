@@ -6,6 +6,7 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroEye, heroEyeSlash } from '@ng-icons/heroicons/outline';
 
 import { Logo } from '../../../components/logo/logo';
+import { Button } from '../../../shared/ui/button/button';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ import { Logo } from '../../../components/logo/logo';
     RouterLink,
     ReactiveFormsModule,
     NgIconComponent,
-    Logo
+    Logo,
+    Button
   ],
   providers: [
     provideIcons({ heroEye, heroEyeSlash })

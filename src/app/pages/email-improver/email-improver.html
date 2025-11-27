@@ -2,74 +2,64 @@
 <app-page-header [pageTitle]="'Improve Your Email'"></app-page-header>
 
 <div class="pt-28 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-
   <!-- LEFT SIDE -->
   <div class="bg-white border border-gray-200 shadow-sm rounded-2xl p-8">
-
     <h1 class="text-2xl font-extrabold text-gray-900 mb-4">Your Email</h1>
 
     <!-- TEXTAREA -->
-  <textarea
-  [ngModel]="originalEmail()"
-  (ngModelChange)="originalEmail.set($event)"
-  rows="16"
-  class="w-full p-5 text-sm leading-6 rounded-2xl border border-gray-300 
-         focus:ring-2 focus:ring-blue-500 outline-none bg-gray-50"
-  placeholder="Paste or write your email here..."
-></textarea>
-
-
+    <textarea
+      [ngModel]="originalEmail()"
+      (ngModelChange)="originalEmail.set($event)"
+      rows="16"
+      class="w-full p-5 text-sm leading-6 rounded-2xl border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none bg-gray-50"
+      placeholder="Paste or write your email here..."
+    ></textarea>
 
     <!-- VALIDATION MESSAGE -->
     @if(isInvalid()) {
-      <p class="text-red-600 text-xs mt-2">{{ errorMessage() }}</p>
+    <p class="text-red-600 text-xs mt-2">{{ errorMessage() }}</p>
     }
 
     <!-- OPTIONS -->
     <div class="mt-6">
       <h4 class="text-gray-800 font-semibold mb-3">Choose Improvement Option</h4>
 
-      <div class="grid grid-cols-2 gap-3">
+      <div class="grid grid-cols-2 gap-3 mb-5">
         @for(option of improvementOptions; track option.id) {
-          <button
-            (click)="selectOption(option.id)"
-            class="p-3 rounded-xl font-medium text-sm transition"
-            [ngClass]="selectedOption() === option.id 
-              ? 'bg-blue-600 text-white shadow' 
-              : 'bg-gray-100 hover:bg-blue-50 hover:text-blue-600'">
-            {{ option.label }}
-          </button>
+        <app-button
+          [label]="option.label"
+          (clicked)="selectOption(option.id)"
+          [variant]="selectedOption() === option.id ? 'primary' : 'outline'"
+          customClass="p-3 w-full rounded-xl font-medium text-sm"
+        />
+
         }
       </div>
     </div>
 
     <!-- IMPROVE BUTTON -->
-    <button
-      (click)="improveEmail()"
-      class="w-full mt-6 py-3 flex items-center justify-center gap-2 rounded-xl
-             bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold
-             shadow hover:shadow-md transition disabled:bg-gray-400"
-      [disabled]="isInvalid() || isGenerating()">
 
-      <ng-icon name="heroSparkles" class="w-5 h-5"></ng-icon>
-
-      @if(isGenerating()) {
-        <span class="animate-pulse">Improving...</span>
-      } @else {
-        <span>Improve Email</span>
-      }
-    </button>
-
+    <app-button
+      [label]="'Improve Email'"
+      [loadingText]="'Generating...'"
+      [loading]="isGenerating()"
+      [disabled]="isInvalid() || isGenerating()"
+      iconType="ng-icon"
+      iconValue="heroSparkles"
+      customClass="w-full p-3 bg-blue-600 text-white hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed rounded-xl"
+      (clicked)="improveEmail()"
+    />
   </div>
 
   <!-- RIGHT SIDE -->
   <div class="bg-white border border-gray-200 shadow-sm rounded-2xl p-8 text-sm">
-
     <!-- HEADER -->
     <div class="flex justify-between items-center">
       <div class="flex items-center gap-2">
         <h1 class="text-2xl font-bold text-gray-900">Improved Email</h1>
-        <span class="text-green-600 text-xs font-semibold px-2 py-1 rounded-full bg-green-100 flex items-center gap-1">
+        <span
+          class="text-green-600 text-xs font-semibold px-2 py-1 rounded-full bg-green-100 flex items-center gap-1"
+        >
           <ng-icon name="heroCheckBadge" class="w-4 h-4"></ng-icon>
           Enhanced
         </span>
@@ -79,14 +69,17 @@
     <!-- VERSION SWITCH -->
     <div class="flex gap-2 p-1 bg-gray-50 rounded-xl border border-gray-200 my-6">
       @for(index of [1,2,3]; track $index) {
-        <button
-          class="px-4 py-2 rounded-xl font-medium transition text-sm"
-          [ngClass]="currentVersion === index 
-            ? 'bg-white shadow-sm text-blue-600' 
-            : 'hover:bg-gray-100 text-gray-600'"
-          (click)="setVersion(index)">
-          Version {{ index }}
-        </button>
+      <button
+        class="px-4 py-2 rounded-xl font-medium transition text-sm"
+        [ngClass]="
+          currentVersion === index
+            ? 'bg-white shadow-sm text-blue-600'
+            : 'hover:bg-gray-100 text-gray-600'
+        "
+        (click)="setVersion(index)"
+      >
+        Version {{ index }}
+      </button>
       }
     </div>
 
@@ -113,21 +106,28 @@
     </div>
 
     <!-- ACTION BUTTONS -->
-    <div class="flex gap-3 mt-6">
-      <button
-        class="w-2/3 py-3 flex items-center justify-center gap-2 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
-        (click)="copyEmail()">
-        <img src="/icons/copy.png" class="w-4 h-4 filter invert brightness-0 saturate-100 hue-rotate-180" />
-        Copy Email
-      </button>
-
-      <button
-        class="w-1/3 py-3 flex items-center justify-center gap-2 rounded-xl border border-gray-300 hover:bg-blue-600 hover:text-white transition font-semibold"
-        (click)="downloadPDF()">
-        <img src="/icons/download.png" class="w-4 h-4" />
-        PDF
-      </button>
+    <div class="flex gap-3 mt-3 w-full">
+      <div class="w-2/3">
+        <app-button
+          label="Copy Email"
+          (clicked)="copyEmail()"
+          iconType="img"
+          iconValue="/icons/copy.png"
+          customClass="w-full py-3"
+          imageClass="!w-4 !h-4 filter invert brightness-0 saturate-100 hue-rotate-180 "
+        />
+      </div>
+      <div class="w-1/3">
+        <app-button
+          label="Download"
+          (clicked)="downloadPDF()"
+          iconType="img"
+          variant="outline"
+          iconValue="/icons/download.png"
+          customClass="w-full py-3 font-semibold hover:bg-gray-100"
+          imageClass="!w-4 !h-4"
+        />
+      </div>
     </div>
-
   </div>
 </div>

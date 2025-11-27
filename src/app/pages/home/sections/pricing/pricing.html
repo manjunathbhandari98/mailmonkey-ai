@@ -48,15 +48,14 @@
             {{ feature }}</li>
         }
       </ul>
+<app-button
+  [label]="plan.buttonText"
+  [customClass]="getButtonClass(plan)"
+  (clicked)="onPlanSelected(plan)"
+  [variant]="getVarient(plan)"
+/>
 
-      <button class="mt-6 font-semibold w-full py-2 border  rounded-xl hover:bg-purple-600 hover:text-white cursor-pointer transition"
-      [ngClass] = "{
-        'border-gray-300 text-black':!plan.highlight,
-        'border-none bg-blue-600 text-white':plan.highlight
-      }"
-      >
-        {{ plan.buttonText }}
-      </button>
+
 
     </div>
 

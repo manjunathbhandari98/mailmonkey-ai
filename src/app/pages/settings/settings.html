@@ -28,11 +28,12 @@
 
       <!-- Change Photo -->
       <div class="flex flex-col gap-2">
-        <button
-          class="px-4 py-2 rounded-xl cursor-pointer text-sm font-semibold border border-gray-300 
-          hover:bg-blue-600 hover:text-white transition">
-          Change Photo
-        </button>
+        
+        <app-button
+        label="Change Photo"
+        customClass="px-4 py-2"
+        variant="outline"
+        />
         <p class="text-xs text-gray-500">JPG or PNG, Max 2MB</p>
       </div>
 
@@ -252,18 +253,18 @@ Senior Developer
 
   <!-- Buttons -->
   <div class="flex gap-4 mt-8 text-sm">
-    
-    <button
-      class="px-5 py-2.5 rounded-xl border border-gray-300 text-gray-700 font-semibold 
-             hover:bg-gray-100 transition">
-      Change Plan
-    </button>
+  
+        <app-button
+        label="Change Plan"
+        customClass="px-5 py-2.5"
+        variant="outline"
+        />
 
-    <button
-      class="px-5 py-2.5 rounded-xl bg-blue-600 text-white font-semibold 
-             hover:bg-blue-700 transition">
-      Update Payment
-    </button>
+            <app-button
+        label="Update Payment"
+        customClass="px-4 py-2.5"
+        />
+
 
   </div>
 
@@ -325,17 +326,21 @@ Senior Developer
 
       <!-- Buttons -->
       <div class="flex gap-2">
-        <button
-          class="px-3 py-2 rounded-lg bg-gray-100 text-gray-700 text-sm font-medium hover:bg-gray-200 transition"
-          (click)="copyKey()">
-          Copy
-        </button>
 
-        <button
-          class="px-3 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition"
-          (click)="regenerateKey()">
-          Regenerate
-        </button>
+
+            <app-button
+        label="Copy"
+        (clicked)="copyKey()"
+        customClass="px-3 py-2 !rounded-lg"
+        variant="secondary"
+        />    
+        
+        <app-button
+        label="Regenerate"
+        (clicked)="regenerateKey()"
+        customClass="px-3 py-2 !text-sm !font-medium !rounded-lg"
+        />
+
       </div>
 
     </div>
@@ -347,16 +352,20 @@ Senior Developer
 
   <div class="flex gap-2 flex justify-end gap-4 mt-4 text-sm [&>*]:cursor-pointer">
       <!-- Save Button -->
-        <button
-        (click)="onError()"
-        class="px-6 py-3 rounded-xl font-semibold hover:bg-gray-300 transition">
-          Cancel
-        </button>
- <button
- (click)="onSave()"
- class="px-6 py-3 rounded-xl bg-blue-600 text-white hover:bg-blue-600 transition">
-          Save Changes
-        </button>
+      
+        <app-button 
+        label="Cancel"
+        (clicked)="onCancel()"
+        customClass="px-6 py-3"
+        variant="secondary"
+        />
+
+        <app-button 
+        label="Save Changes"
+        (clicked)="onSave()"
+        customClass="px-6 py-3"
+        />
+
   </div>
       
 </div>

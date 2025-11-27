@@ -24,12 +24,10 @@
       Login
     </a>
 
-    <a
-      [routerLink]="['/register']"
-      routerLinkActive="router-link-active"
-      class="bg-blue-600 rounded-lg cursor-pointer px-4 py-2 text-sm font-bold text-white hover:bg-blue-700 transition"
-    >
-      Get Started
-    </a>
+      <app-button
+    label="Get Started"
+    (clicked)="navigateToRegister()"
+    customClass="!px-4 !py-2 !text-sm"
+    />
   </div>
 </div>

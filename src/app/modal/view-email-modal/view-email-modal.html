@@ -22,9 +22,12 @@
         </div>
       </div>
 
-      <button (click)="close()" class="p-2 rounded-xl hover:bg-gray-100">
-        <ng-icon name="heroXMark" class="w-6 h-6 text-gray-600"></ng-icon>
-      </button>
+      <app-button 
+      label="x"
+      (clicked)="close()"
+      customClass="p-2 !w-6 !h-6 !text-lg !rounded-full !text-center"
+      variant="secondary"
+      />
     </div>
 
     <!-- Action Toolbar -->
@@ -56,12 +59,11 @@
         ></ng-icon>
       </div>
 
-      <button 
-        class="px-4 py-2 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700"
-        (click)="useTemplate()"
-      >
-        Use This
-      </button>
+      <app-button 
+      label="Use This"
+      (clicked)="useTemplate()"
+      customClass="px-4 py-2"
+      />
     </div>
 
     <!-- Email Content -->

@@ -6,11 +6,12 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroEye, heroEyeSlash } from '@ng-icons/heroicons/outline';
 import { Logo } from '../../../components/logo/logo';
 import { ToastService } from '../../../services/toast-service/toast-service';
+import { Button } from '../../../shared/ui/button/button';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, Logo, RouterLink, NgIconComponent],
+  imports: [CommonModule, ReactiveFormsModule, Logo, RouterLink, NgIconComponent,Button],
   providers: [
     provideIcons({ heroEye, heroEyeSlash })
   ],

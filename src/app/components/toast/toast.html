@@ -7,15 +7,21 @@
              animate-slide-up w-max">
 
       <ng-icon
-        [name]="t.type === 'success' ? 'heroCheckCircleSolid' : 'heroXCircleSolid'"
-        class="w-5 h-5"
-        [ngClass]="{
-          'text-green-600': t.type === 'success',
-          'text-red-600': t.type === 'error',
-          'text-blue-600': t.type === 'info',
-          'text-yellow-600':t.type === 'warning'
-        }"
-      ></ng-icon>
+  [name]="
+    t.type === 'success' ? 'heroCheckCircleSolid' :
+    t.type === 'error' ? 'heroXCircleSolid' :
+    t.type === 'warning' ? 'heroExclamationTriangleSolid' :
+    'heroInformationCircleSolid'
+  "
+  class="w-5 h-5"
+  [ngClass]="{
+    'text-green-600': t.type === 'success',
+    'text-red-600': t.type === 'error',
+    'text-yellow-600': t.type === 'warning',
+    'text-blue-600': t.type === 'info'
+  }"
+></ng-icon>
+
 
       <p class="text-gray-800 text-sm font-medium">{{ t.message }}</p>
     </div>

@@ -116,15 +116,15 @@
 
       <!-- Buttons -->
       <div class="flex gap-3">
-        <button
+        <!-- <button
           type="button"
           class="w-2/3 p-3 flex items-center justify-center gap-2 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
           (click)="generateEmail()"
           [disabled]="emailGenerationForm.invalid || isGenerating()">
-          <ng-icon name="heroSparkles" class="w-5 h-5"></ng-icon>
+          <ng-icon name="heroSparkles" class="w-5 h-5"></ng-icon> -->
 
           <!-- spinner + text -->
-          @if (isGenerating()) {
+          <!-- @if (isGenerating()) {
             <svg class="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
               <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-opacity="0.25" stroke-width="4"></circle>
               <path d="M22 12a10 10 0 0 1-10 10" stroke="currentColor" stroke-width="4" stroke-linecap="round"></path>
@@ -134,14 +134,30 @@
           @if(!isGenerating()) {
             <span>Generate Email</span>
           }
-        </button>
+        </button> -->
+<div class="w-2/3">
+   <app-button
+  [label]="'Generate Email'"
+  [loadingText]="'Generating...'"
+  [loading]="isGenerating()"
+  [disabled]="emailGenerationForm.invalid || isGenerating()"
+  iconType="ng-icon"
+  iconValue="heroSparkles"
+  customClass="w-full p-3 bg-blue-600 text-white hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed rounded-xl"
+  (clicked)="generateEmail()"
+/>
 
-        <button
-          type="button"
-          class="w-1/3 p-3 border border-gray-300 rounded-xl hover:bg-gray-100 transition"
-          (click)="clearForm()">
-          Clear
-        </button>
+</div>
+       
+        <div class="w-1/3">
+            <app-button
+            (clicked)="clearForm()"
+        label="Clear"
+        customClass="w-full py-3"
+        variant="outline"
+        />
+        </div>
+      
       </div>
     </form>
   </div>
@@ -192,20 +208,28 @@
       </textarea>
     </div>
 
-    <div class="flex gap-3 mt-3">
-      <button
-        class="w-2/3 p-3 flex items-center justify-center gap-2 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
-        (click)="copyCurrent()">
-        <img src="/icons/copy.png" alt="copy" class="w-4 h-4 filter invert brightness-0 saturate-100 hue-rotate-180 cursor-pointer">
-        Copy Email
-      </button>
-
-      <button
-        class="w-1/3 p-3 flex items-center justify-center gap-2 rounded-xl hover:bg-blue-600 hover:text-white font-semibold transition"
-        (click)="downloadCurrent()">
-        <img src="/icons/download.png" alt="download" class="w-4 h-4 cursor-pointer">
-        Download PDF
-      </button>
+    <div class="flex gap-3 mt-3 w-full">
+      <div class="w-2/3">
+        <app-button 
+        label="Copy Email"
+        (clicked)="copyCurrent()"
+        iconType="img"
+        iconValue="/icons/copy.png"
+        customClass="w-full py-3"
+        imageClass="!w-4 !h-4 filter invert brightness-0 saturate-100 hue-rotate-180 "
+        />
+      </div>
+      <div class="w-1/3">
+        <app-button 
+        label="Download"
+        (clicked)="downloadCurrent()"
+        iconType="img"
+        variant="outline"
+        iconValue="/icons/download.png"
+        customClass="w-full py-3 font-semibold hover:bg-gray-100"
+        imageClass="!w-4 !h-4"
+        />
+      </div>
     </div>
   </div>
 </div>

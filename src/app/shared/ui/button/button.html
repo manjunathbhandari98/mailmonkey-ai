@@ -1,0 +1,80 @@
+<button
+  type="button"
+  class="flex items-center justify-center gap-2 rounded-xl transition cursor-pointer"
+  [disabled]="disabled || loading"
+  (click)="onClick()"
+  [ngClass]="[        
+    customClass,
+    variant === 'primary'
+      ? 'bg-blue-600 text-white hover:bg-blue-700 font-semibold disabled:bg-gray-400 disabled:cursor-not-allowed'
+      : '',
+      variant=== 'secondary'
+      ? 'bg-gray-100 text-gray-700 text-sm font-medium hover:bg-gray-200'
+      : '',
+    variant === 'outline'
+      ? 'bg-white border border-gray-300 font-semibold text-black hover:bg-gray-100 disabled:bg-gray-200 disabled:cursor-not-allowed'
+      : '',
+      variant === 'ghost'
+      ? 'bg-gray-100 border border-gray-300 text-gray-700 hover:bg-blue-500 hover:text-white text-sm'
+      :''
+  ]"
+>
+
+  <!-- LEFT ICON (only when not loading) -->
+  @if (iconPosition === 'left' && !loading) {
+    <ng-container [ngTemplateOutlet]="iconTpl"></ng-container>
+  }
+
+  <!-- LABEL or LOADING TEXT -->
+  <span>
+    @if (loading) {
+      <span class="flex items-center gap-2">
+
+        <!-- SPINNER -->
+        <svg class="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="10"
+                  stroke="currentColor"
+                  stroke-opacity="0.25"
+                  stroke-width="4" />
+          <path d="M22 12a10 10 0 0 1-10 10"
+                stroke="currentColor"
+                stroke-width="4"
+                stroke-linecap="round" />
+        </svg>
+
+        {{ loadingText || 'Loading...' }}
+      </span>
+    }
+
+    @else {
+      {{ label }}
+    }
+  </span>
+
+  <!-- RIGHT ICON (only when not loading) -->
+  @if (iconPosition === 'right' && !loading) {
+    <ng-container [ngTemplateOutlet]="iconTpl"></ng-container>
+  }
+
+</button>
+
+
+<!-- ICON TEMPLATE -->
+<ng-template #iconTpl>
+
+  <!-- SVG -->
+  @if (iconType === 'svg') {
+    <span class="w-5 h-5" [innerHTML]="iconValue"></span>
+  }
+
+  <!-- ng-icon -->
+  @if (iconType === 'ng-icon') {
+    <ng-icon [name]="iconValue!" class="w-5 h-5" [ngClass]="imageClass"></ng-icon>
+  }
+
+  <!-- Image -->
+  @if (iconType === 'img') {
+    <img [src]="iconValue!" class="w-5 h-5" [ngClass]="imageClass" alt="icon" />
+  }
+
+</ng-template>

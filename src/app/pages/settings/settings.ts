@@ -2,15 +2,19 @@ import { Component } from '@angular/core';
 import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SettingToogle } from '../../components/setting-toogle/setting-toogle';
 import { PageHeader } from '../../core/page-header/page-header';
+import { currentUserInfo } from '../../data/app-data';
 import { ToastService } from '../../services/toast-service/toast-service';
+import { Button } from '../../shared/ui/button/button';
 
 @Component({
   selector: 'app-settings',
-  imports: [SettingToogle, PageHeader, ReactiveFormsModule],
+  imports: [SettingToogle, PageHeader, ReactiveFormsModule, Button],
   templateUrl: './settings.html',
   styleUrl: './settings.scss',
 })
 export class Settings {
+
+  userInfo = currentUserInfo
 
   settingForm!:FormGroup;
 
@@ -18,9 +22,9 @@ constructor(private toast:ToastService,
   private fb:NonNullableFormBuilder
 ){
   this.settingForm = this.fb.group({
-    firstName:['',[Validators.required]],
-    lastName:['',[Validators.required]],
-    email:['',[Validators.required,Validators.email]]
+    firstName:[this.userInfo.firstName,[Validators.required]],
+    lastName:[this.userInfo.lastName,[Validators.required]],
+    email:[this.userInfo.email,[Validators.required,Validators.email]]
   })
 }
 
@@ -57,8 +61,6 @@ onSave(){
   this.toast.success("Settings saved Successfully");
 }
 
-onError(){
-  this.toast.error("Cancelled successfully")
-}
+onCancel(){}
 
 }

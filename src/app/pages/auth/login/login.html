@@ -83,15 +83,12 @@
       }
     </div>
 
-
     <!-- BUTTON -->
-    <button
-      type="button"
-      (click)="onLogin()"
-      class="w-full p-3 rounded-xl font-semibold text-white bg-blue-600 
-            disabled:bg-gray-400 disabled:cursor-not-allowed hover:bg-blue-700 transition">
-      Sign In
-    </button>
+    <app-button
+    (cliked)="onLogin()"
+    label="Sign In"
+    customClass="w-full py-3 font-bold"
+    />
 
   </form>
 
@@ -103,13 +100,17 @@
     <div class="border-t border-gray-300 w-full"></div>
   </div>
 
+<div class="w-full">
 
   <!-- Google -->
-  <button
-    class="w-full flex items-center justify-center gap-3 border border-gray-300 rounded-xl p-3 hover:bg-blue-600 hover:text-white transition">
-    <img src="/icons/google.png" class="w-5 h-5" />
-    <span class="text-sm font-medium">Continue with Google</span>
-  </button>
+  <app-button 
+  label="Continue with Google"
+  iconType="img"
+  iconValue="/icons/google.png"
+  customClass="w-full p-3 font-medium"
+  variant="outline"
+  />
+</div>
 
 
   <!-- Footer -->

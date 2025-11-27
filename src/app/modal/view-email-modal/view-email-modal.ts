@@ -8,11 +8,12 @@ import {
   heroDocumentDuplicate,
   heroXMark
 } from '@ng-icons/heroicons/outline';
+import { Button } from '../../shared/ui/button/button';
 
 @Component({
   selector: 'app-view-email-modal',
   standalone: true,
-  imports: [NgIconComponent, DatePipe],
+  imports: [NgIconComponent, DatePipe, Button],
   providers: [provideIcons({
     heroXMark,
     heroDocumentDuplicate,

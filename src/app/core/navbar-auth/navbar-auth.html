@@ -6,12 +6,17 @@
 
   <!-- Right Side (Navs) -->
    <div class="flex items-center gap-7">
-         <a
+         <!-- <a
       [routerLink]="['/generate-email']"
       class="bg-blue-600 rounded-lg cursor-pointer px-4 py-2 text-sm font-bold text-white hover:bg-blue-700 transition"
     >
     Generate
-    </a>
+    </a> -->
+    <app-button 
+    label="Generate"
+    (clicked)="navigateToGeneration()"
+    customClass="!py-2 !px-4"
+    />
        <ng-icon
        [name]="'heroBell'"
        style="width: 24px; height: 24px;cursor: pointer;"
