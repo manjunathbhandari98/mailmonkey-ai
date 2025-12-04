@@ -40,7 +40,7 @@ export class EmailGenerator {
   }
 
 
-  // generate: simulate async call, populate 3 versions
+// Start to generate email
   generateEmail() {
        if (this.emailGenerationForm.invalid) {
       this.emailGenerationForm.markAllAsTouched();
@@ -76,7 +76,7 @@ export class EmailGenerator {
 
 
   regenerate() {
-    // simple regenerate: call generate again using current values
+    // call generate again using current values
     this.generateEmail();
   }
 

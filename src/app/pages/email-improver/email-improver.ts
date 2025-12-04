@@ -7,6 +7,7 @@ import {
   heroSparkles
 } from '@ng-icons/heroicons/outline';
 import { PageHeader } from '../../core/page-header/page-header';
+import { EmailGenerationService } from '../../services/email-generation-service/email-generation-service';
 import { ToastService } from '../../services/toast-service/toast-service';
 import { Button } from '../../shared/ui/button/button';
 
@@ -27,24 +28,50 @@ export class EmailImprover {
   selectedOption = signal('professional');
   isGenerating = signal(false);
 
+  showDropdown = false;
+
+
   // Improvement Options
   improvementOptions = [
-    { id: 'professional', label: 'Make it Professional' },
-    { id: 'shorter', label: 'Make it Shorter' },
-    { id: 'friendly', label: 'Make it Friendlier' },
-    { id: 'grammar', label: 'Fix Grammar' }
-  ];
+  { id: 'professional', label: 'Make it Professional' },
+  { id: 'friendly', label: 'Make it Friendlier' },
+  { id: 'polite', label: 'Make it More Polite' },
+  { id: 'formal', label: 'Make it More Formal' },
 
-  // OUTPUT EMAIL VERSIONS
-  currentVersion = 1;
- generatedEmails: Record<number, { subject: string; content: string }> = {
-  1: { subject: '', content: '' },
-  2: { subject: '', content: '' },
-  3: { subject: '', content: '' }
-};
+  { id: 'shorter', label: 'Make it Shorter' },
+  { id: 'longer', label: 'Make it Longer' },
+  { id: 'concise', label: 'Make it More Concise' },
+  { id: 'detailed', label: 'Add More Details' },
+
+  { id: 'grammar', label: 'Fix Grammar' },
+  { id: 'simple', label: 'Simplify the Language' },
+
+  { id: 'enthusiastic', label: 'Make it Enthusiastic' },
+  { id: 'persuasive', label: 'Make it More Persuasive' },
+  { id: 'active', label: 'Rewrite in Active Voice' },
+  { id: 'passive', label: 'Rewrite in Passive Voice' },
+  { id: 'humanize', label: 'Make it More Human-like' },
+  { id: 'empathy', label: 'Add Empathy' }
+];
+
+ generatedEmail:any = '';
 
 
-  constructor(private toast:ToastService) {}
+toggleDropdown() {
+  this.showDropdown = !this.showDropdown;
+}
+
+chooseOption(option: any) {
+  this.selectedOption.set(option.id);
+  this.showDropdown = false;
+}
+
+selectedOptionLabel() {
+  return this.improvementOptions.find(o => o.id === this.selectedOption())?.label;
+}
+
+
+  constructor(private toast:ToastService, private emailService: EmailGenerationService) {}
 
   // VALIDATION LOGIC
   errorMessage = computed(() => {
@@ -60,7 +87,7 @@ export class EmailImprover {
   isInvalid = computed(() => this.errorMessage() !== "");
 
 
-  // MAIN LOGIC 
+  // MAIN LOGIC
   improveEmail() {
     if (this.isInvalid()) {
       this.toast.error(this.errorMessage());
@@ -71,36 +98,22 @@ export class EmailImprover {
     const option = this.selectedOption();
     const base = this.originalEmail;
 
-    const optionText = {
-      professional: "Here is a polished, professional version:",
-      shorter: "Here is a more concise version:",
-      friendly: "Here is a warmer, more friendly version:",
-      grammar: "Here is a corrected version with improved grammar:"
-    }[option];
+    const payload = {
+      originalEmail: base(),
+      improvementType: option
+    };
 
-    setTimeout(() => {
-      this.generatedEmails[1] = {
-        subject: "Improved Email - Version 1",
-        content: `${optionText}\n\n${base}\n\n✨ Version 1 improved content…`
-      };
+    this.emailService.improveEmail(payload).subscribe({
+      next: (res:any) =>{
+        this.generatedEmail = res.generatedEmail;
+        this.isGenerating.set(false);
+      },
+      error: (err:any) =>{
+        console.error(err);
+      }
+    })
 
-      this.generatedEmails[2] = {
-        subject: "Improved Email - Version 2",
-        content: `${optionText}\n\n${base}\n\n✨ Version 2 improved content…`
-      };
-
-      this.generatedEmails[3] = {
-        subject: "Improved Email - Version 3",
-        content: `${optionText}\n\n${base}\n\n✨ Version 3 improved content…`
-      };
-
-      this.isGenerating.set(false);
-      this.toast.success("Your email has been improved");
-    }, 700);
-  }
-
-  setVersion(v: number) {
-    this.currentVersion = v;
+    this.toast.success("Email improved successfully!");
   }
 
   selectOption(id: string) {
@@ -108,13 +121,13 @@ export class EmailImprover {
   }
 
   copyEmail() {
-    const content = this.generatedEmails[this.currentVersion]?.content;
+    const content = this.generatedEmail;
     navigator.clipboard.writeText(content);
     this.toast.success("Copied to clipboard");
   }
 
   downloadPDF() {
-    const text = this.generatedEmails[this.currentVersion]?.content;
+    const text = this.generatedEmail;
     const blob = new Blob([text], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
 

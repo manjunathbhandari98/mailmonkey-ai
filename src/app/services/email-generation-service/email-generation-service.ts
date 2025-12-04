@@ -19,7 +19,7 @@ export class EmailGenerationService {
   }
 
   improveEmail(payload:any){
-    return this.http.post(`${this.baseUrl}/imporve`,payload);
+    return this.http.post(`${this.baseUrl}/improve`,payload);
   }
-  
+
 }
