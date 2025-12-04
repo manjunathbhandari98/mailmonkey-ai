@@ -1,16 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
-import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import { heroCheck } from '@ng-icons/heroicons/outline';
 import { plans } from '../../../../data/app-data';
 import { ToastService } from '../../../../services/toast-service/toast-service';
-import { Button } from '../../../../shared/ui/button/button';
 import { PricingCard } from '../../../../shared/ui/pricing-card/pricing-card';
 
 @Component({
   selector: 'app-pricing',
   standalone:true,
-  imports: [NgIconComponent,CommonModule, Button, PricingCard],
+  imports: [CommonModule, PricingCard],
   providers:[
     provideIcons({heroCheck})
   ],

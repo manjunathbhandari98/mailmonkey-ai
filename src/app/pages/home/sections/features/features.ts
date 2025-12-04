@@ -8,13 +8,13 @@ import {
 } from '@ng-icons/heroicons/outline';
 
 import { Component, Input } from '@angular/core';
-import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import { FeatureCard } from '../../../../shared/ui/feature-card/feature-card';
 
 @Component({
   selector: 'app-features',
   standalone:true,
-  imports: [NgIconComponent, FeatureCard
+  imports: [ FeatureCard
   ],
   providers: [
   provideIcons({

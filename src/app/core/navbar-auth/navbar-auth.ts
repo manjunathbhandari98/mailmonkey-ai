@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroBell, heroCog6Tooth } from '@ng-icons/heroicons/outline';
 import { Logo } from '../../components/logo/logo';
@@ -8,7 +8,7 @@ import { Button } from '../../shared/ui/button/button';
 @Component({
   selector: 'app-navbar-auth',
   standalone:true,
-  imports: [NgIconComponent, Logo, RouterLink, RouterLinkActive, Button],
+  imports: [NgIconComponent, Logo, RouterLink,Button],
   providers:[provideIcons({
     heroBell, heroCog6Tooth
   })],

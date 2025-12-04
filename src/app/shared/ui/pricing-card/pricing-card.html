@@ -1,45 +1,53 @@
- <div class="bg-white my-10 relative p-6 rounded-2xl flex flex-col justify-between"
-    [ngClass]="{
-        'shadow-md hover:shadow-lg': !plan.highlight,
-    'shadow-2xl scale-[1.03] border-blue-600':plan.highlight
-    }"
-    >
+<div
+  class="bg-white my-6 sm:my-10 relative p-5 sm:p-6 rounded-2xl flex flex-col justify-between w-full
+         transition-all duration-300"
+  [ngClass]="{
+    'shadow-md hover:shadow-lg': !plan.highlight,
+    'shadow-2xl scale-[1.03] border border-blue-600': plan.highlight
+  }"
+>
 
-            @if (plan.highlight) {
-          <div class="absolute -top-4 left-1/2 -translate-x-1/2">
-            <span class="bg-blue-600 text-white text-xs font-bold px-4 py-1 rounded-full shadow">
-              {{ plan.tag }}
-            </span>
-          </div>
-        }
-
-      <div class="header text-center mb-4">
-        <h1 class="font-extrabold text-3xl">{{ plan.name }}</h1>
-
-        <h2 class="font-extrabold text-5xl text-blue-600 mt-2">
-          ${{ plan.price }}
-          <span class="text-gray-500 font-medium text-[15px]">{{ plan.period }}</span>
-        </h2>
-
-      </div>
-
-      <ul class="space-y-4 text-gray-900 text-sm mt-4">
-        @for (feature of plan.features; track $index) {
-          <li>
-            <ng-icon 
-          [name]="'heroCheck'" 
-          style="width: 30px;"
-            aria-setsize="20"
-            >
-        </ng-icon>
-            {{ feature }}</li>
-        }
-      </ul>
-<app-button
-  [label]="plan.buttonText"
-  [customClass]="getButtonClass(plan)"
-  (clicked)="onPlanSelected(plan)"
-  [variant]="getVarient(plan)"
-/>
-
+  <!-- BADGE -->
+  @if (plan.highlight) {
+    <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+      <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow">
+        {{ plan.tag }}
+      </span>
     </div>
+  }
+
+  <!-- Header -->
+  <div class="header text-center mb-4">
+    <h1 class="font-extrabold text-2xl sm:text-3xl">{{ plan.name }}</h1>
+
+    <h2 class="font-extrabold text-4xl sm:text-5xl text-blue-600 mt-2 flex justify-center items-end gap-1">
+      ${{ plan.price }}
+      <span class="text-gray-500 font-medium text-sm sm:text-base">{{ plan.period }}</span>
+    </h2>
+  </div>
+
+  <!-- Features -->
+  <ul class="space-y-3 sm:space-y-4 text-gray-900 text-sm sm:text-base mt-4 px-1">
+    @for (feature of plan.features; track $index) {
+      <li class="flex items-start gap-2">
+        <ng-icon 
+          name="heroCheck" 
+          class="w-5 h-5 sm:w-6 sm:h-6 text-blue-600 shrink-0"
+        >
+        </ng-icon>
+        <span>{{ feature }}</span>
+      </li>
+    }
+  </ul>
+
+  <!-- CTA Button -->
+  <div class="mt-6">
+    <app-button
+      [label]="plan.buttonText"
+      [customClass]="getButtonClass(plan) + ' w-full py-3 !text-sm sm:!text-base'"
+      [variant]="getVarient(plan)"
+      (clicked)="onPlanSelected(plan)"
+    />
+  </div>
+
+</div>

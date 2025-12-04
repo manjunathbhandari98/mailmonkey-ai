@@ -18,9 +18,6 @@ import { Templates } from './pages/templates/templates';
 export const routes: Routes = [
 
 
-  // Public Route
-  { path: '', component: Home },
-
 
   // Auth
   // Public routes but blocked for logged-in users

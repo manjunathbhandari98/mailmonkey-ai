@@ -1,59 +1,50 @@
-<!-- Page Header -->
 <app-page-header [pageTitle]="'AI Email Generator'"></app-page-header>
 
-<div class="pt-28 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="pt-15 md:pt-28 max-w-full md:max-w-7xl md:mx-auto md:px-4 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
 
   <!-- LEFT: Email Context -->
-  <div class="bg-white border border-gray-200 shadow-sm rounded-2xl p-8">
-    <h1 class="text-2xl font-bold text-gray-900 mb-6">Email Context</h1>
+  <div class="bg-white border w-full border-gray-200 md:shadow-sm md:rounded-2xl p-5 sm:p-8">
+    <h1 class="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Email Context</h1>
 
-    <!-- Reactive form -->
-    <form [formGroup]="emailGenerationForm" class="flex flex-col gap-6 text-sm" (ngSubmit)="generateEmail()">
+    <form [formGroup]="emailGenerationForm"
+          class="flex flex-col gap-4 sm:gap-6 text-sm"
+          >
 
       <!-- Receiver -->
       <div class="flex flex-col gap-1">
-  <label class="font-medium text-gray-700">Receiver Name</label>
-
-  <input
-    type="text"
-    formControlName="receiver"
-    class="p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none"
-    placeholder="Hiring Manager"
-  />
-
-  @if (emailGenerationForm.get('receiver')?.touched && emailGenerationForm.get('receiver')?.invalid) {
-    <p class="text-red-600 text-xs">
-      @if (emailGenerationForm.get('receiver')?.errors?.['required']) {
-        <span>Receiver is required.</span>
-      }
-    </p>
-  }
-</div>
+        <label class="font-medium text-gray-700">Receiver Name</label>
+        <input
+          type="text"
+          formControlName="receiver"
+          class="p-2.5 sm:p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none"
+          placeholder="Hiring Manager"
+        />
+        @if (emailGenerationForm.get('receiver')?.touched && emailGenerationForm.get('receiver')?.invalid) {
+          <p class="text-red-600 text-xs">Receiver is required.</p>
+        }
+      </div>
 
       <!-- Sender -->
-     <div class="flex flex-col gap-1">
-  <label class="font-medium text-gray-700">Sender Name</label>
-
-  <input
-    type="text"
-    formControlName="sender"
-    class="p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none"
-    placeholder="John Doe"
-  />
-
-  @if (emailGenerationForm.get('sender')?.touched && emailGenerationForm.get('sender')?.invalid) {
-    <p class="text-red-600 text-xs">
-      @if (emailGenerationForm.get('sender')?.errors?.['required']) {
-        <span>Sender is required.</span>
-      }
-    </p>
-  }
-</div>
+      <div class="flex flex-col gap-1">
+        <label class="font-medium text-gray-700">Sender Name</label>
+        <input
+          type="text"
+          formControlName="sender"
+          class="p-2.5 sm:p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none"
+          placeholder="John Doe"
+        />
+        @if (emailGenerationForm.get('sender')?.touched && emailGenerationForm.get('sender')?.invalid) {
+          <p class="text-red-600 text-xs">Sender is required.</p>
+        }
+      </div>
 
       <!-- Email Type -->
       <div class="flex flex-col gap-1">
         <label class="font-medium text-gray-700">Email Type</label>
-        <select formControlName="emailType" class="p-3 rounded-xl border border-gray-300 bg-white focus:ring-2 focus:ring-blue-500 outline-none">
+        <select
+          formControlName="emailType"
+          class="p-2.5 sm:p-3 rounded-xl border border-gray-300 bg-white focus:ring-2 focus:ring-blue-500 outline-none"
+        >
           <option value="jobApplication">Job Application</option>
           <option value="follow-up">Follow-Up</option>
           <option value="proposal">Proposal</option>
@@ -66,17 +57,22 @@
       <!-- Tone -->
       <div class="flex flex-col gap-1">
         <label class="font-medium text-gray-700">Tone</label>
-        <select formControlName="tone" class="p-3 rounded-xl border border-gray-300 bg-white focus:ring-2 focus:ring-blue-500 outline-none">
+        <select
+          formControlName="tone"
+          class="p-2.5 sm:p-3 rounded-xl border border-gray-300 bg-white focus:ring-2 focus:ring-blue-500 outline-none"
+        >
           <optgroup label="Professional">
             <option value="professional">Professional</option>
             <option value="formal">Formal</option>
             <option value="concise">Concise</option>
           </optgroup>
+
           <optgroup label="Friendly">
             <option value="friendly">Friendly</option>
             <option value="polite">Polite</option>
             <option value="casual">Casual</option>
           </optgroup>
+
           <optgroup label="Creative">
             <option value="enthusiastic">Enthusiastic</option>
             <option value="storytelling">Storytelling</option>
@@ -90,146 +86,120 @@
         <input
           type="text"
           formControlName="subject"
-          class="p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none"
-          placeholder="Application for Senior Developer Position" />
+          class="p-2.5 sm:p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none"
+          placeholder="Application for Senior Developer Position"
+        />
       </div>
 
-      <!-- Key Points -->
+      <!-- Contents -->
       <div class="flex flex-col gap-1">
-  <label class="font-medium text-gray-700">Key Points</label>
+        <label class="font-medium text-gray-700">Content</label>
+        <textarea
+          formControlName="content"
+          rows="4"
+          class="p-2.5 sm:p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none"
+          placeholder="• 5 years experience&#10;• Strong backend skills&#10;• Interested in the role"
+        ></textarea>
 
-  <textarea
-    formControlName="keyPoints"
-    rows="5"
-    class="p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none"
-    placeholder="• 5 years experience&#10;• Strong backend skills&#10;• Interested in the role">
-  </textarea>
-
-  @if (emailGenerationForm.get('keyPoints')?.touched && emailGenerationForm.get('keyPoints')?.invalid) {
-    <p class="text-red-600 text-xs">
-      @if (emailGenerationForm.get('keyPoints')?.errors?.['required']) {
-        <span>Please add key points.</span>
-      }
-    </p>
-  }
-</div>
+        @if (emailGenerationForm.get('keyPoints')?.touched && emailGenerationForm.get('keyPoints')?.invalid) {
+          <p class="text-red-600 text-xs">Please add content.</p>
+        }
+      </div>
 
       <!-- Buttons -->
-      <div class="flex gap-3">
-        <!-- <button
-          type="button"
-          class="w-2/3 p-3 flex items-center justify-center gap-2 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
-          (click)="generateEmail()"
-          [disabled]="emailGenerationForm.invalid || isGenerating()">
-          <ng-icon name="heroSparkles" class="w-5 h-5"></ng-icon> -->
-
-          <!-- spinner + text -->
-          <!-- @if (isGenerating()) {
-            <svg class="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
-              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-opacity="0.25" stroke-width="4"></circle>
-              <path d="M22 12a10 10 0 0 1-10 10" stroke="currentColor" stroke-width="4" stroke-linecap="round"></path>
-            </svg>
-            <span>Generating...</span>
-          } 
-          @if(!isGenerating()) {
-            <span>Generate Email</span>
-          }
-        </button> -->
-<div class="w-2/3">
-   <app-button
-  [label]="'Generate Email'"
-  [loadingText]="'Generating...'"
-  [loading]="isGenerating()"
-  [disabled]="emailGenerationForm.invalid || isGenerating()"
-  iconType="ng-icon"
-  iconValue="heroSparkles"
-  customClass="w-full p-3 bg-blue-600 text-white hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed rounded-xl"
-  (clicked)="generateEmail()"
-/>
-
-</div>
-       
-        <div class="w-1/3">
-            <app-button
-            (clicked)="clearForm()"
-        label="Clear"
-        customClass="w-full py-3"
-        variant="outline"
+      <div class="flex flex-col sm:flex-row gap-3 mt-2 w-full">
+        <div class="w-full md:w-2/3">
+ <app-button
+          label="Generate Email"
+          [loading]="isGenerating()"
+          [loadingText]="'Generating...'"
+          iconType="ng-icon"
+          iconValue="heroSparkles"
+          [disabled]="emailGenerationForm.invalid || isGenerating()"
+          customClass="w-full p-3 bg-blue-600 text-white rounded-xl disabled:bg-gray-400 hover:bg-blue-700"
+          (clicked)="generateEmail()"
         />
+
         </div>
-      
+        <div class="w-full md:w-1/3">
+
+        <app-button
+          label="Clear"
+          variant="outline"
+          customClass="w-full p-3"
+          (clicked)="clearForm()"
+        />
       </div>
+        </div>
+
+
     </form>
   </div>
 
   <!-- RIGHT: Generated Email -->
-  <div class="bg-white border border-gray-200 shadow-sm rounded-2xl p-8 text-sm">
+  <div class="bg-white border border-gray-200 shadow-sm rounded-2xl p-5 sm:p-8 text-sm">
 
-    <!-- Header with actions -->
-    <div class="flex justify-between items-center">
-      <h1 class="text-2xl font-bold text-gray-900">Generated Email</h1>
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-3 mb-10">
+      <h1 class="text-xl sm:text-2xl font-bold text-gray-900">Generated Email</h1>
 
-      <div class="flex items-center gap-5 text-gray-600">
-        <img src="/icons/copy.png" alt="copy" class="w-4 h-4 cursor-pointer" (click)="copyCurrent()">
-        <img src="/icons/download.png" alt="download" class="w-4 h-4 cursor-pointer" (click)="downloadCurrent()">
-        <img src="/icons/generative.png" alt="regenerate" class="w-4 h-4 cursor-pointer" (click)="regenerate()">
-        <img src="/icons/save.png" alt="save" class="w-4 h-4 cursor-pointer" (click)="saveCurrent()">
+      <div class="flex items-center justify-between gap-4 text-gray-600">
+        <img src="/icons/copy.png" class="w-5 h-5 cursor-pointer" (click)="copyCurrent()">
+        <img src="/icons/download.png" class="w-5 h-5 cursor-pointer" (click)="downloadCurrent()">
+        <img src="/icons/generative.png" class="w-5 h-5 cursor-pointer" (click)="regenerate()">
+        <img src="/icons/save.png" class="w-5 h-5 cursor-pointer" (click)="saveCurrent()">
       </div>
-    </div>
-
-    <!-- Version Selector -->
-    <div class="flex gap-2 p-1 bg-gray-50 rounded-xl border border-gray-200 my-5">
-      @for (index of [1,2,3]; track $index) {
-        <button
-          class="px-4 py-2 rounded-xl font-medium transition"
-          [ngClass]="currentVersion === index ? 'bg-white shadow-sm text-blue-600' : 'hover:bg-white/60'"
-          (click)="setVersion(index)">
-          Version {{ index }}
-        </button>
-      }
     </div>
 
     <!-- Subject -->
-    <div class="flex flex-col gap-1 mb-4">
-      <label class="font-medium text-sm text-gray-700">Subject Line</label>
+    <!-- <div class="flex flex-col gap-1 mb-4">
+      <label class="font-medium text-gray-700">Subject Line</label>
       <input
         type="text"
         class="p-3 text-sm rounded-xl border border-gray-300 outline-none font-semibold"
-        [value]="generatedEmails[currentVersion]?.subject || ''" readonly>
-    </div>
+        [value]="generatedEmails[currentVersion]?.subject || ''"
+        readonly
+      />
+    </div> -->
 
-    <!-- Email content — uses Roboto Serif -->
+    <!-- Email Content -->
     <div class="flex flex-col gap-1">
-      <label class="font-medium text-sm text-gray-700">Email Content</label>
+      <label class="font-medium text-gray-700">Email Content</label>
       <textarea
-        rows="18"
-        class="p-4 text-[14px] leading-7 border border-gray-300 rounded-xl bg-white roboto-serif focus:ring-2 focus:ring-blue-500 outline-none"
-        [value]="generatedEmails[currentVersion]?.content || ''" readonly>
-      </textarea>
+        rows="24"
+        class="p-4 text-sm leading-6 border border-gray-300 rounded-xl bg-white roboto-serif focus:ring-2 focus:ring-blue-500 outline-none"
+        [value]="generatedEmail || ''"
+        readonly
+      ></textarea>
     </div>
 
-    <div class="flex gap-3 mt-3 w-full">
-      <div class="w-2/3">
-        <app-button 
+    <!-- Bottom Buttons -->
+    <div class="flex flex-col sm:flex-row gap-3 mt-4 w-full">
+      <div class="w-full md:w-2/3">
+          <app-button
         label="Copy Email"
-        (clicked)="copyCurrent()"
         iconType="img"
         iconValue="/icons/copy.png"
         customClass="w-full py-3"
-        imageClass="!w-4 !h-4 filter invert brightness-0 saturate-100 hue-rotate-180 "
-        />
+        (clicked)="copyCurrent()"
+        imageClass="!w-4 !h-4 filter invert brightness-0"
+      />
       </div>
-      <div class="w-1/3">
-        <app-button 
+      <div class="w-full md:w-1/3">
+        <app-button
         label="Download"
-        (clicked)="downloadCurrent()"
         iconType="img"
         variant="outline"
         iconValue="/icons/download.png"
-        customClass="w-full py-3 font-semibold hover:bg-gray-100"
+        customClass="w-full py-3"
+        (clicked)="downloadCurrent()"
         imageClass="!w-4 !h-4"
-        />
+      />
       </div>
     </div>
+
+    <div class="h-4 flex md:hidden"></div>
+
   </div>
+
 </div>

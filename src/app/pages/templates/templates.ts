@@ -4,14 +4,13 @@ import { RouterLink } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroBookmark, heroBriefcase, heroBuildingOffice, heroChartBar, heroChatBubbleLeftRight, heroEnvelope, heroHeart, heroMegaphone, heroUserGroup } from '@ng-icons/heroicons/outline';
 import { PageHeader } from '../../core/page-header/page-header';
-import { Button } from '../../shared/ui/button/button';
 import { TemplateCard } from '../../shared/ui/template-card/template-card';
 import { emailTemplates, templateCategories } from './../../data/app-data';
 
 @Component({
   selector: 'app-templates',
   standalone:true,
-  imports: [PageHeader,NgIconComponent, CommonModule, Button, TemplateCard, RouterLink],
+  imports: [PageHeader,NgIconComponent, CommonModule, TemplateCard, RouterLink],
   providers:[provideIcons({
     heroBriefcase,
     heroBuildingOffice, 

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import { heroArrowDown, heroArrowPath, heroBookmark, heroClipboard, heroSparkles } from '@ng-icons/heroicons/outline';
 import { PageHeader } from '../../core/page-header/page-header';
 import { EmailGenerationService } from '../../services/email-generation-service/email-generation-service';
@@ -11,7 +11,7 @@ import { Button } from '../../shared/ui/button/button';
 @Component({
   selector: 'app-email-generator',
   standalone: true,
-  imports: [PageHeader, NgIconComponent, ReactiveFormsModule, CommonModule, Button],
+  imports: [PageHeader, ReactiveFormsModule, CommonModule, Button],
   providers: [provideIcons({ heroSparkles, heroClipboard, heroArrowDown, heroBookmark, heroArrowPath })],
   templateUrl: './email-generator.html',
   styleUrl: './email-generator.scss',
@@ -19,14 +19,7 @@ import { Button } from '../../shared/ui/button/button';
 export class EmailGenerator {
   // form-backed fields (no ngModel)
   emailGenerationForm!: FormGroup;
-
-  // state fields
-  currentVersion = 1;
-  generatedEmails: any = {
-    1: { subject: '', content: '' },
-    2: { subject: '', content: '' },
-    3: { subject: '', content: '' }
-  };
+  generatedEmail: string = "";
 
   // generation spinner
   isGenerating = signal(false);
@@ -42,14 +35,14 @@ export class EmailGenerator {
       emailType: ['jobApplication', [Validators.required]],
       tone: ['professional', [Validators.required]],
       subject: [''],
-      keyPoints: ['', [Validators.required]]
+      content: ['', [Validators.required]]
     });
   }
 
 
   // generate: simulate async call, populate 3 versions
   generateEmail() {
-    if (this.emailGenerationForm.invalid) {
+       if (this.emailGenerationForm.invalid) {
       this.emailGenerationForm.markAllAsTouched();
       this.toast && this.toast.error?.('Please fill required fields');
       return;
@@ -65,43 +58,22 @@ export class EmailGenerator {
       emailType: string;
       tone: string;
       subject?: string;
-      keyPoints: string;
+      content: string;
     };
 
     this.emailService.generateEmail(v).subscribe({
       next:(res:any) =>{
-        this.generatedEmails[this.currentVersion] = {
-          subject: res.subject,
-          content: res.content
-        }
+        this.generatedEmail= res.generatedEmail;
+        this.isGenerating.set(false);
       },
       error:(err:any) =>{
         console.error(err);
-        
       }
     })
 
-    // replace with real API call — below is mocked
-    setTimeout(() => {
-      const subjectLine = v.subject?.trim() || `${this.capitalize(v.emailType)} - ${v.sender}`;
-      const baseContent = `Dear ${v.receiver || 'Hiring Manager'},\n\n` +
-        `I am writing regarding ${v.emailType.replace(/([A-Z])/g, ' $1')}. ${v.keyPoints}\n\n` +
-        `Best,\n${v.sender}`;
 
-      this.generatedEmails[1] = { subject: subjectLine, content: baseContent };
-      this.generatedEmails[2] = { subject: `${subjectLine} — Short`, content: `(${v.tone}) ${baseContent}` };
-      this.generatedEmails[3] = { subject: `${subjectLine} — Friendly`, content: `Hi ${v.receiver || 'there'},\n\n${v.keyPoints}\n\nCheers,\n${v.sender}` };
-
-      this.isGenerating.set(false);
-      this.currentVersion = 1;
-      this.toast && this.toast.success?.('Email generated');
-    }, 800);
   }
 
-  // helpers
-  setVersion(v: number) {
-    this.currentVersion = v;
-  }
 
   regenerate() {
     // simple regenerate: call generate again using current values
@@ -115,27 +87,27 @@ export class EmailGenerator {
       emailType: 'jobApplication',
       tone: 'professional',
       subject: '',
-      keyPoints: ''
+      content: ''
     });
-    this.generatedEmails = { 1: { subject: '', content: '' }, 2: { subject: '', content: '' }, 3: { subject: '', content: '' } };
+    this.generatedEmail = "";
   }
 
   // clipboard / download / save (simple helpers)
   copyCurrent() {
-    const text = this.generatedEmails[this.currentVersion]?.content || '';
+    const text = this.generatedEmail || '';
     if (!text) { this.toast && this.toast.error?.('Nothing to copy'); return; }
     navigator.clipboard?.writeText(text).then(() => this.toast && this.toast.success?.('Copied to clipboard'));
   }
 
   downloadCurrent() {
-    const content = this.generatedEmails[this.currentVersion]?.content || '';
+    const content = this.generatedEmail || '';
     if (!content) { this.toast && this.toast.error?.('Nothing to download'); return; }
 
     const blob = new Blob([content], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `${(this.generatedEmails[this.currentVersion]?.subject || 'email').replace(/\s+/g, '_')}.txt`;
+    a.download = `${(this.generatedEmail || 'email').replace(/\s+/g, '_')}.txt`;
     a.click();
     URL.revokeObjectURL(url);
     this.toast && this.toast.success?.('Downloaded');

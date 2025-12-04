@@ -7,7 +7,7 @@ import { Button } from '../../../../shared/ui/button/button';
 @Component({
   selector: 'app-hero',
   standalone:true,
-  imports: [Button, NgIconComponent],
+  imports: [Button],
   providers:[provideIcons({
     heroArrowRight
   })],

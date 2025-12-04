@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import { heroHeart } from '@ng-icons/heroicons/outline';
 import { PageHeader } from '../../../core/page-header/page-header';
 import { emailTemplates, templateCategories } from '../../../data/app-data';
@@ -9,7 +9,7 @@ import { TemplateCard } from '../../../shared/ui/template-card/template-card';
 
 @Component({
   selector: 'app-template-category',
-  imports: [CommonModule, TemplateCard, PageHeader, NgIconComponent],
+  imports: [CommonModule, TemplateCard, PageHeader],
   providers:[provideIcons({
     heroHeart
   })],
