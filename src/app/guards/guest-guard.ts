@@ -1,21 +1,19 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
+import { AuthService } from '../services/auth-service/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GuestGuard implements CanActivate {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private auth:AuthService) {}
 
-  canActivate(): boolean {
-    const token = localStorage.getItem('token');
 
-    // If token exists => redirect to dashboard
-    if (token) {
+   canActivate(): boolean {
+    if (this.auth.isLoggedIn()) {
       this.router.navigate(['/dashboard']);
       return false;
     }
-
     return true;
   }
 }

@@ -7,6 +7,7 @@ import { heroEye, heroEyeSlash } from '@ng-icons/heroicons/outline';
 
 import { Logo } from '../../../components/logo/logo';
 import { AuthService } from '../../../services/auth-service/auth';
+import { ToastService } from '../../../services/toast-service/toast-service';
 import { Button } from '../../../shared/ui/button/button';
 
 @Component({
@@ -33,6 +34,7 @@ export class Login {
   constructor(
     private fb: NonNullableFormBuilder,
     private router: Router,
+    private toast:ToastService,
     private auth:AuthService
   ) {
     this.loginForm = this.fb.group({
@@ -47,15 +49,21 @@ export class Login {
   togglePassword() {
     this.showPassword.update(v => !v);
   }
-
   onLogin() {
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
       return;
     }
-    const jwt = 'FakeJwt'
-    // this.auth.login(jwt)
-    localStorage.setItem('token',jwt)
+    this.auth.login(this.loginForm.value).subscribe({
+      next: () => {
+        this.router.navigate(['/dashboard']);
+        this.toast.success('Login successful!');
+      },
+      error: (err) => {
+        console.error('Login error:', err);
+        this.toast.error('Login failed. Please check your credentials and try again.');
+      }
+    });
     this.router.navigate(['/dashboard']);
   }
 }

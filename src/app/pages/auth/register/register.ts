@@ -5,6 +5,7 @@ import { Router, RouterLink } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroEye, heroEyeSlash } from '@ng-icons/heroicons/outline';
 import { Logo } from '../../../components/logo/logo';
+import { AuthService } from '../../../services/auth-service/auth';
 import { ToastService } from '../../../services/toast-service/toast-service';
 import { Button } from '../../../shared/ui/button/button';
 
@@ -27,6 +28,7 @@ export class Register {
 
   constructor(
     private router: Router,
+    private auth:AuthService,
     private fb: NonNullableFormBuilder,
     private toast: ToastService
   ) {
@@ -63,8 +65,19 @@ export class Register {
       return;
     }
 
+    this.auth.register(this.registerForm.value).subscribe(
+      {
+        next:() =>{
     this.toast.success("User Registered Successfully");
     this.router.navigate(['/login']);
+        },
+        error:(err) =>{
+          console.error('Registration error:', err);
+          this.toast.error('Registration failed. Please try again.');
+        }
+      }
+    );
+
   }
 
 }
